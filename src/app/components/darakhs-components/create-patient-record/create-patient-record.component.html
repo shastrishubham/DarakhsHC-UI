@@ -81,9 +81,18 @@
 
                      <div class="col-md-4">
                        <label for="inputState" class="form-label">Reference <span class="mandatory-field">*</span></label> 
-                       <select id="inputState" class="form-select" #mySelect (change)='onChangeReference(mySelect.value)' [(ngModel)]="this.patientRecord.MS_Reference_Id" name="MS_Reference_Id">
+                       <!-- <select id="inputState" class="form-select" #mySelect (change)='onChangeReference(mySelect.value)' [(ngModel)]="this.patientRecord.MS_Reference_Id" name="MS_Reference_Id">
                           <option *ngFor="let reference of references" [value]="reference.Id"> {{reference.Reference}}</option>
-                       </select>
+                       </select> -->
+                          <ng-select
+  class="form-control"
+  [items]="references"
+  bindLabel="Reference"
+  bindValue="Id"
+  [(ngModel)]="patientRecord.MS_Reference_Id"
+  name="Reference"
+  [multiple]="false">
+</ng-select>
                      </div>
                      <div class="col-md-4" *ngIf="isUserSelectOtherReference">
                         <label for="inputName5" class="form-label">Other Reference <span class="mandatory-field">*</span> </label> 

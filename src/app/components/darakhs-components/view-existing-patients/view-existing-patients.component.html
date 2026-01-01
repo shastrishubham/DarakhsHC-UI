@@ -142,8 +142,8 @@
         <div class="prescription">
 
           <div class="text-center">
-            <h4>Dr. ABC Clinic</h4>
-            <small>Reg No: 12345 | Phone: 9999999999</small>
+            <h4>Darakh's Hearing Clinic</h4>
+            <!-- <small>Reg No: 12345 | Phone: 9999999999</small> -->
             <hr>
           </div>
 
@@ -174,7 +174,7 @@
           <p>{{ selectedPatientSummary.Remark }}</p>
 
           <strong>Next Visit</strong>
-          <p>{{ selectedPatientSummary.NextVisitDate | date:'dd-MMM-yyyy' }}</p>
+          <p>{{ selectedPatientSummary.NextVisitDate | date:'dd-MMM-yyyy hh:mm a' }}</p>
 
          
 
