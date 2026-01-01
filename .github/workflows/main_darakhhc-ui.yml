@@ -1,6 +1,4 @@
-# Docs: https://github.com/Azure/webapps-deploy
-
-name: Build and deploy Angular app to Azure Web App - DarakhHC-UI
+name: Build and deploy Angular app to Azure Web App (Windows Static)
 
 on:
   push:
@@ -15,10 +13,9 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js (Azure supported)
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
@@ -27,32 +24,26 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Angular app
+      - name: Build Angular
         run: npm run build
 
-      # ❌ Tests intentionally skipped
-
-      - name: Upload build artifact
+      - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
-          name: angular-build
-          path: |
-            dist
-            server.js
-            package.json
-            package-lock.json
+          name: angular-dist
+          path: dist/Darakhs-UI
 
   deploy:
     runs-on: windows-latest
     needs: build
 
     steps:
-      - name: Download build artifact
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: angular-build
+          name: angular-dist
 
-      - name: Deploy to Azure Web App (Windows)
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'DarakhHC-UI'
