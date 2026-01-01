@@ -1,0 +1,58 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Patients</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+             <li class="breadcrumb-item">Patient</li>
+             <li class="breadcrumb-item active">View Summary</li>
+          </ol>
+       </nav>
+    </div>
+    <section class="section">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <h5 class="card-title">Patients Summary</h5>
+                  <button type="button" (click)="createNewPatientSummary()" class="btn btn-primary">Add</button>
+                  <!-- <p>Add lightweight datatables to your project.</p> -->
+                  <table class="table datatable">
+                     <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th> -->
+                           <th scope="col">Name</th>
+                           <th scope="col">Visit Date</th>
+                           <th scope="col">Description</th>
+                           <th scope="col">Next Visit Date</th>
+                           <th scope="col">Follow-Up Req/Date</th>
+                           <th scope="col" colspan="3">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let patientSummary of patientsSummaries">
+                           <!-- <th scope="row">1</th> -->
+                           <td>{{patientSummary.PatientsName}}</td>
+                           <td>{{ patientSummary.VisitDate | date:'dd-MMM-yyyy hh:mm a' }}</td>
+                           <td>{{ patientSummary.Remark }}</td>
+                           <td>{{ patientSummary.NextVisitDate | date:'dd-MMM-yyyy hh:mm a' }}</td>
+                           <td> {{ patientSummary.IsFollowUpReq ? 'Yes' : 'No' }} 
+                                 <span *ngIf="patientSummary.FollowUpDate">
+                                   ({{ patientSummary.FollowUpDate | date:'dd-MMM-yyyy' }})
+                                 </span>
+                           </td>
+                           <td>
+                              <a href="javascript:void(0);" (click)="editPatientSummary(patientSummary)">Edit</a> &nbsp;&nbsp; 
+                              <!-- | &nbsp;&nbsp;
+                              <a href="javascript:void(0);" (click)="deleteSummaryAndInventoriesBySummaryId(patientSummary)">Delete</a> &nbsp;&nbsp; | &nbsp;&nbsp; -->
+                              <a href="javascript:void(0);" (click)="viewPatientSummary(patientSummary)">  | &nbsp;&nbsp; View</a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+ </main>

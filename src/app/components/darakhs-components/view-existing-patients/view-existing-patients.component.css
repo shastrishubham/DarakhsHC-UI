@@ -1,0 +1,36 @@
+.card-body .btn{margin-right: 5px;}
+
+@media print {
+
+  /* Hide everything */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* Show only print area */
+  .print-area,
+  .print-area * {
+    visibility: visible !important;
+  }
+
+  /* Position print area correctly */
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* Remove modal borders/shadows */
+  .modal,
+  .modal-content {
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Hide modal header & footer */
+  .modal-header,
+  .modal-footer {
+    display: none !important;
+  }
+}

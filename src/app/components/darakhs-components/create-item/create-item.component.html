@@ -1,0 +1,115 @@
+<main id="main" class="main">
+   <div class="pagetitle">
+      <h1>Masters</h1>
+      <nav>
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item">Masters</li>
+            <li class="breadcrumb-item active">Create Product</li>
+         </ol>
+      </nav>
+   </div>
+   <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Create Product</h5>
+                 <form class="row g-3">
+                  
+                     <div class="col-md-6"> 
+                        <label for="inputState" class="form-label">Product Company <span class="mandatory-field">*</span></label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.itemInfo.MS_ItemComp_Id" name="MS_ItemComp_Id">
+                           <option *ngFor="let itemCompany of itemCompanies" [value]="itemCompany.Id"> {{itemCompany.CompanyName}}</option>
+                        </select>
+                     </div>
+                     <div class="col-md-6"></div>
+                     
+                     <div class="col-md-6"> 
+                        <label for="inputName5" class="form-label">Product Name <span class="mandatory-field">*</span> </label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.Name" name="Name">
+                     </div>
+                     <div class="col-md-3">
+                        <label for="inputState" class="form-label">HSN Code</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.HsnCode" name="HsnCode">
+                     </div>
+                     <!-- <div class="col-md-3">
+                        <label for="inputState" class="form-label">Serial Number</label>  -->
+                        <!-- <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.SerialNo" name="SerialNo">
+                     </div>-->
+                     <div class="col-md-3"> 
+                        <label for="inputState" class="form-label">Select ItemType</label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.itemInfo.ItemType" name="ItemType">
+                           <option *ngFor="let itemType of itemTypes" [value]="itemType"> {{itemTypeEnum[itemType]}}</option>
+                        </select>
+                     </div>
+
+                     
+                     <div class="col-md-6">
+                        <label for="inputState" class="form-label">Description</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.Description" name="Description">
+                     </div>
+                     <div class="col-md-6">
+                        <label for="inputState" class="form-label">Other Information</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.OtherInfo" name="OtherInfo">
+                     </div>
+
+                     
+                     <div class="col-md-3">
+                        <label for="inputState" class="form-label">MRP <span class="mandatory-field">*</span></label> 
+                        <input type="number" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.MRP" name="MRP">
+                     </div>
+                     <div class="col-md-3">
+                        <label for="inputState" class="form-label">Purchase Rate</label> 
+                        <input type="number" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.PRate" name="PRate">
+                     </div>
+                     <div class="col-md-3">
+                        <label for="inputName5" class="form-label">Purchase Rate Effective From</label> 
+                        <input type="date" class="form-control" [(ngModel)]="this.itemInfo.PRateEffectiveFrom" name="PRateEffectiveFrom">
+                    </div>
+                     <div class="col-md-3">
+                        <label for="inputState" class="form-label">Sale Rate <span class="mandatory-field">*</span></label> 
+                        <input type="number" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.SRate" name="SRate">
+                     </div>
+
+
+                     <div class="col-md-4">
+                       <label for="inputState" class="form-label">Total Stock <span class="mandatory-field">*</span></label>
+                       <input type="number" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.TotalStock" name="TotalStock" readonly> 
+                     </div>
+                     <div class="col-md-4">
+                        <label for="inputState" class="form-label">Minimum Stock</label>
+                        <input type="number" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.MinimumStock" name="MinimumStock"> 
+                     </div>
+                     <div class="col-md-4">
+                        <label for="inputState" class="form-label">Available Stock</label>
+                        <input type="number" class="form-control" id="inputName5" [(ngModel)]="this.itemInfo.AvailableStock" name="AvailableStock" readonly> 
+                     </div>
+                     
+                     <div class="col-md-6"> 
+                        <label for="inputState" class="form-label">Select Warehouse</label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.itemInfo.MS_WH_Id" name="MS_WH_Id">
+                           <option *ngFor="let warehouse of warehouses" [value]="warehouse.Id"> {{warehouse.WarehouseName}}</option>
+                        </select>
+                     </div>
+                     <div class="col-md-4"> 
+                        <label for="inputState" class="form-label">Tax</label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.itemInfo.MS_TaxRate_Id" name="MS_TaxRate_Id">
+                           <option *ngFor="let taxRate of taxRates" [value]="taxRate.Id"> {{taxRate.TaxRateName}}</option>
+                        </select>
+                     </div>
+                     <div class="col-md-2"> </div>
+                   
+                    <div class="text-center"> 
+                       <button type="submit" class="btn btn-primary" (click)="upsertItem()">Submit</button> 
+                    </div>
+
+                 </form>
+              </div>
+           </div>
+        </div>
+        
+     </div>
+  </section>
+</main>

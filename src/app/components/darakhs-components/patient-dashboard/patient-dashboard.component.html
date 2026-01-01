@@ -1,0 +1,119 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Dashboard</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+             <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+       </nav>
+    </div>
+    <section class="section dashboard">
+       <div class="row">
+          <div class="col-lg-12">
+             <div class="row">
+                <div class="col-xxl-3 col-md-6">
+                   <div class="card info-card sales-card">
+                      <div class="card-body">
+                         <h5 class="card-title"><a routerLink="/view-patient-appt">Appointments <span>| Today's</span></a></h5>
+                         <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-cart"></i></div>
+                            <div class="ps-3">
+                               <h6>{{dshboardResponseDto.Kpis.TodaysAppointmentCount}}</h6>
+                               <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                 <div class="col-xxl-3 col-md-6">
+                   <div class="card info-card revenue-card">
+                      <div class="card-body">
+                         <h5 class="card-title"><a routerLink="/view-patient">Patients <span>| Today's </span></a></h5>
+                         <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-people"></i></div>
+                            <div class="ps-3">
+                               <h6>{{dshboardResponseDto.Kpis.TodaysPatientCount}}</h6>
+                               <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div class="col-xxl-3 col-md-6">
+                   <div class="card info-card revenue-card">
+                      <div class="card-body">
+                         <h5 class="card-title"><a routerLink="/view-patient">Patients <span>| This Month</span></a></h5>
+                         <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-people"></i></div>
+                            <div class="ps-3">
+                               <h6>{{dshboardResponseDto.Kpis.ThisMonthPatientCount}}</h6>
+                               <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div class="col-xxl-3 col-md-6">
+                   <div class="card info-card customers-card">
+                      <div class="card-body">
+                         <h5 class="card-title"><a routerLink="/pat-followup">Patient : Follow Up <span>| Today</span></a></h5>
+                         <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-people"></i></div>
+                            <div class="ps-3">
+                               <h6>{{dshboardResponseDto.Kpis.TodaysFollowUpCount}}</h6>
+                               <!-- <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+            </div>
+          </div>
+            <div class="col-lg-9">
+                <div class="col-12">
+                   <div class="card">
+                      <div class="card-body">
+                         <h5 class="card-title">Hour-wise Patients Appointment <span>/Today</span></h5>
+                          <div id="reportsChart1"></div> 
+                      </div>
+                   </div>
+                </div>
+                 <div class="col-12">
+                   <div class="card">
+                      <div class="card-body">
+                         <h5 class="card-title">Month-wise Patients <span>/Month</span></h5>
+                          <div id="reportsChart2"></div> 
+                      </div>
+                   </div>
+                </div>
+                 <div class="col-12">
+                   <div class="card">
+                      <div class="card-body">
+                         <h5 class="card-title">Month-wise Treatments <span>/Month</span></h5>
+                          <div id="reportsChart3"></div> 
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-3">
+                 <div class="card">
+                     <div class="card-body pb-0">
+                        <h5 class="card-title">Appointment vs Walk-in <span>| Today</span></h5>
+                        <div id="trafficChart1" style="min-height: 400px;" class="echart"></div>
+                     </div>
+                  </div>
+                   <div class="card">
+                     <div class="card-body pb-0">
+                        <h5 class="card-title">Hearing vs Speaking <span>| Month</span></h5>
+                        <div id="trafficChart2" style="min-height: 400px;" class="echart"></div>
+                     </div>
+                   </div>
+             </div>
+
+              
+          </div>
+          
+       
+    </section>
+ </main>

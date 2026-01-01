@@ -1,0 +1,51 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Patients</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+             <li class="breadcrumb-item">Patients</li>
+             <li class="breadcrumb-item active">View Patients</li>
+          </ol>
+       </nav>
+    </div>
+    <section class="section">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <h5 class="card-title">Patients</h5>
+                  <button type="button" (click)="createNewPatientRecord()" class="btn btn-primary">Add</button>
+                  <!-- <p>Add lightweight datatables to your project.</p> -->
+                  <table class="table datatable">
+                     <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th> -->
+                           <th scope="col">Name</th>
+                           <th scope="col">Mobile</th>
+                           <th scope="col">Address</th>
+                           <th scope="col">Treatment</th>
+                           <th scope="col" colspan="2">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let patient of patients">
+                           <!-- <th scope="row">1</th> -->
+                           <td>{{patient.FullName}}</td>
+                           <td>{{ CombineMobiles(patient) }}</td>
+                           <td>{{ CombineAddress(patient) }}</td>
+                           <td>{{patient.TreamentName}}</td>
+                           <td>
+                              <a href="javascript:void(0);" (click)="editPatientDetails(patient)">Edit</a> &nbsp;&nbsp; 
+                              <!-- | &nbsp;&nbsp;
+                              <a href="javascript:void(0);" (click)="deletePatients(patient)">Delete</a> -->
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+ </main>

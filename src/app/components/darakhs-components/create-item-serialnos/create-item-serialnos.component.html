@@ -1,0 +1,53 @@
+<main id="main" class="main">
+   <div class="pagetitle">
+      <h1>Masters</h1>
+      <nav>
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item">Masters</li>
+            <li class="breadcrumb-item active">Create Product Serial Numbers</li>
+         </ol>
+      </nav>
+   </div>
+   <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Create Product Serial Number</h5>
+                 <form class="row g-3">
+                  
+                     <div class="col-md-6"> 
+                        <label for="inputState" class="form-label">Product <span class="mandatory-field">*</span></label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.itemSerialNos.MS_Item_Id" name="MS_Item_Id">
+                           <option *ngFor="let item of items" [value]="item.Id"> {{item.Name}}</option>
+                        </select>
+                     </div>
+                     <div class="col-md-6"></div>
+                     
+                     <div class="col-md-6"> 
+                        <label for="inputName5" class="form-label">Product Serial Number <span class="mandatory-field">*</span> </label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.itemSerialNos.SerialNumber" name="SerialNumber">
+                     </div>
+                     <div class="col-md-6"></div>
+                     
+                     
+                     <div class="col-md-6">
+                        <label for="inputState" class="form-label">Description</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.itemSerialNos.Description" name="Description">
+                     </div>
+                     <div class="col-md-6"></div>
+
+                    <div class="text-center"> 
+                       <button type="submit" class="btn btn-primary" (click)="upsertItemSerialNos()">Submit</button> 
+                    </div>
+
+                 </form>
+              </div>
+           </div>
+        </div>
+        
+     </div>
+  </section>
+</main>

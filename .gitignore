@@ -1,0 +1,10 @@
+# Angular
+.angular/
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# Archives
+*.rar

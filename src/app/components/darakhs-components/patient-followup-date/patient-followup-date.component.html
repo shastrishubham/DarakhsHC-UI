@@ -1,0 +1,142 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Patients</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+             <li class="breadcrumb-item">Patients</li>
+             <li class="breadcrumb-item active">FollowUp Patients</li>
+          </ol>
+       </nav>
+    </div>
+    <section class="section">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <h5 class="card-title">Today's - Follow Up Patients</h5>
+                 <form class="row g-3 align-items-end">
+                        <div class="col-md-4">
+                          <label for="followUpDate" class="form-label">Follow-Up Date</label>
+                          <input
+                            type="date"
+                            class="form-control"
+                            id="followUpDate"
+                            [(ngModel)]="followUpDt"
+                            name="FollowUpDate">
+                        </div>
+                    
+                        <div class="col-md-2">
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            (click)="getPatientsFollowUpListByDate()">
+                            Submit
+                          </button>
+                        </div>
+                 </form>
+                 <br/>
+
+                  <!-- <p>Add lightweight datatables to your project.</p> -->
+                  <table class="table datatable">
+                     <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th> -->
+                           <th scope="col">Name</th>
+                           <th scope="col">Mobile</th>
+                           <th scope="col">Address</th>
+                           <th scope="col">Treatment</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let followUpPatient of followUpPatients">
+                           <!-- <th scope="row">1</th> -->
+                            <td> <a href="javascript:void(0)" class="text-primary fw-semibold" (click)="openPatientPopup(followUpPatient)">
+                                        {{ followUpPatient.PatientsName }} </a>
+                            </td>
+                           <td> {{ followUpPatient.Mobile?.replace('/0', '') }}</td>
+                           <td>{{ CombineAddress(followUpPatient) }}</td>
+                           <td>{{followUpPatient.TreamentName}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Patient Details Modal -->
+<div class="modal fade" id="patientModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Patient Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div *ngIf="selectedPatient">
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">ReceiptNo:</div>
+            <div class="col-md-8">{{ selectedPatient.ReceiptNo }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">PatientsName:</div>
+            <div class="col-md-8">{{ selectedPatient.PatientsName }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">Mobile:</div>
+            <div class="col-md-8">{{ selectedPatient.Mobile }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">TreamentName:</div>
+            <div class="col-md-8">{{ selectedPatient.TreamentName }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">Address:</div>
+            <div class="col-md-8">{{ CombineAddress(selectedPatient) }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">VisitDate:</div>
+            <div class="col-md-8">{{ selectedPatient.VisitDate | date:'dd/MMM/yyyy' }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">NextVisitDate:</div>
+            <div class="col-md-8">{{ selectedPatient.NextVisitDate | date:'dd/MMM/yyyy' }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">Remark:</div>
+            <div class="col-md-8">{{ selectedPatient.Remark }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4 fw-bold">Notes:</div>
+            <div class="col-md-8">{{ selectedPatient.Notes }}</div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+ </main>

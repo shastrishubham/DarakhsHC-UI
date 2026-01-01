@@ -1,0 +1,111 @@
+<main id="main" class="main">
+   <div class="pagetitle">
+      <h1>Masters</h1>
+      <nav>
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item">Patient</li>
+            <li class="breadcrumb-item active">Create Patient</li>
+         </ol>
+      </nav>
+   </div>
+   <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Create Patient</h5>
+                 <form class="row g-3">
+                  
+                    <div class="col-md-5"> 
+                       <label for="inputName5" class="form-label">First Name <span class="mandatory-field">*</span></label> 
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.FName" name="FName">
+                    </div>
+                    <div class="col-md-5"> 
+                       <label for="inputName5" class="form-label">Last Name</label> 
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.LName" name="LName">
+                    </div>
+                    <div class="col-md-2">
+                     <label for="inputState" class="form-label">Maritial Status</label> 
+                     <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MaritialStatus" name="MaritialStatus">
+                        <option value=null selected>Choose...</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                     </select>
+                   </div>
+
+                    <div class="col-md-5">
+                       <label for="inputState" class="form-label">Mobile 1 <span class="mandatory-field">*</span></label>
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.Mobile1" name="Mobile1"> 
+                     </div>
+                     <div class="col-md-5"> 
+                       <label for="inputName5" class="form-label">Mobile 2</label> 
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.Mobile2" name="Mobile2">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputName5" class="form-label">DOB</label> 
+                        <input type="date" class="form-control" [(ngModel)]="this.patientRecord.DOB" name="DOB">
+                    </div>
+                    
+                     <div class="col-md-6"> 
+                        <label for="inputName5" class="form-label">Address Line 1 <span class="mandatory-field">*</span></label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.AddressLine1" name="AddressLine1">
+                     </div>
+                     <div class="col-md-6"> 
+                        <label for="inputName5" class="form-label">Address Line 2</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.AddressLine2" name="AddressLine2">
+                     </div>
+
+                     <div class="col-md-4">
+                       <label for="inputState" class="form-label">State</label> 
+                       <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MS_State_Id" name="MS_State_Id">
+                          <option *ngFor="let state of states" [value]="state.Id"> {{state.StateName}}</option>
+                       </select>
+                     </div>
+                     <div class="col-md-4"> 
+                        <label for="inputState" class="form-label">City</label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MS_City_Id" name="MS_City_Id">
+                          <option *ngFor="let city of cities" [value]="city.Id"> {{city.CityName}}</option>
+                        </select>
+                     </div>
+                     <div class="col-md-4"> 
+                        <label for="inputName5" class="form-label">Postal Code</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.PostalCode" name="PostalCode">
+                     </div>
+                   
+                     <div class="col-md-12"> 
+                        <label for="inputName5" class="form-label">Remark </label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.Remark" name="Remark">
+                     </div>
+
+                     <div class="col-md-4">
+                       <label for="inputState" class="form-label">Reference <span class="mandatory-field">*</span></label> 
+                       <select id="inputState" class="form-select" #mySelect (change)='onChangeReference(mySelect.value)' [(ngModel)]="this.patientRecord.MS_Reference_Id" name="MS_Reference_Id">
+                          <option *ngFor="let reference of references" [value]="reference.Id"> {{reference.Reference}}</option>
+                       </select>
+                     </div>
+                     <div class="col-md-4" *ngIf="isUserSelectOtherReference">
+                        <label for="inputName5" class="form-label">Other Reference <span class="mandatory-field">*</span> </label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.OtherReferenceName" name="OtherReferenceName">
+                     </div>
+                     <div class="col-md-4">
+                       <label for="inputState" class="form-label">Visit For <span class="mandatory-field">*</span></label> 
+                       <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MS_Treament_Id" name="MS_Treament_Id">
+                          <option *ngFor="let treatment of treatments" [value]="treatment.Id"> {{treatment.TreamentName}}</option>
+                       </select>
+                      </div>
+                   
+                   
+                    <div class="text-center"> 
+                       <button type="submit" class="btn btn-primary" (click)="upsertPatientsRecord()">Submit</button> 
+                    </div>
+
+                 </form>
+              </div>
+           </div>
+        </div>
+        
+     </div>
+  </section>
+</main>

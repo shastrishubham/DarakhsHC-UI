@@ -1,0 +1,197 @@
+<main id="main" class="main">
+   <div class="pagetitle">
+      <h1>Patients</h1>
+      <nav>
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item">Patient</li>
+            <li class="breadcrumb-item active">View Appointment</li>
+         </ol>
+      </nav>
+   </div>
+   <section class="section">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <h5 class="card-title">Search Patients</h5>
+                  <form class="row g-3">
+                     <div class="col-md-6">
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.value" name="Name">
+                     </div>
+                     <div class="col-md-3">
+                        <div class="text-center">
+                           <button type="submit" class="btn btn-primary"
+                              (click)="getExistingPatientsInfoByValue()">Search</button>
+                        </div>
+                     </div>
+                     
+                  </form>
+                  <!-- <p>Add lightweight datatables to your project.</p> -->
+                  <br/>
+                  <table class="table datatable" *ngIf="!IsShowPatientHistory">
+                     <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th> -->
+                           <th scope="col">Recent Visit</th>
+                           <th scope="col">Name</th>
+                           <th scope="col">Mobile</th>
+                           <th scope="col">Address</th>
+                           <th scope="col">Treatment</th>
+                           <th scope="col" colspan="2">Action</th> 
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let patient of patients">
+                           <!-- <th scope="row">1</th> -->
+                           <td>{{ convertDateToFormat(patient.VisitDate) }}</td>
+                           <td>{{patient.FullName}}</td>
+                           <td>{{ CombineMobiles(patient) }}</td>
+                           <td>{{ CombineAddress(patient) }}</td>
+                           <td>{{patient.TreamentName}}</td>
+                           <td>
+                             <a href="javascript:void(0);" (click)="openModal(patient)"> Create Appointment </a> &nbsp;&nbsp; | &nbsp;&nbsp;
+                              <a href="javascript:void(0);" (click)="checkInPatient(patient)">Check-In</a> &nbsp;&nbsp; | &nbsp;&nbsp;
+                              <a href="javascript:void(0);" (click)="viewPatientHistory(patient)">History</a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="table datatable" *ngIf="IsShowPatientHistory">
+                     <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th> -->
+                           <th scope="col">Visit Date</th>
+                           <th scope="col">Receipt</th>
+                           <th scope="col">Name</th>
+                           <th scope="col">Mobile</th>
+                           <th scope="col">Remark</th>
+                           <th scope="col">Note</th>
+                           <th scope="col" colspan="2">Action</th> 
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let patient of patientHistory">
+                           <!-- <th scope="row">1</th> -->
+                           <td>{{ convertDateToFormat(patient.VisitDate) }}</td>
+                           <td>{{ patient.ReceiptNo }}</td>
+                           <td>{{ patient.PatientsName }}</td>
+                           <td>{{ patient.Mobile }}</td>
+                           <td>{{ patient.Remark }}</td>
+                           <td>{{ patient.Note }}</td>
+                           <td>
+                              <a href="javascript:void(0);" (click)="openSummary(patient)">View Summary</a> 
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Modal -->
+<div class="modal fade" tabindex="-1" [ngClass]="{'show': showApptModal}" [ngStyle]="{'display': showApptModal  ? 'block' : 'none'}" *ngIf="showApptModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Create Appointment</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <label>Date & Time</label>
+        <input type="datetime-local"
+               class="form-control"
+               [(ngModel)]="appointmentDateTime">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary" (click)="createExistingPatientAppt()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="showApptModal"></div>
+
+
+<!-- Patient Summary Modal -->
+<div class="modal fade"
+     tabindex="-1"
+     [ngClass]="{'show': showSummaryModal}"
+     [ngStyle]="{'display': showSummaryModal ? 'block' : 'none'}"
+     *ngIf="showSummaryModal">
+
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable prescription print-area">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Patient Summary</h5>
+        <button type="button" class="btn-close" (click)="closeSummaryModal()"></button>
+      </div>
+
+      <div class="modal-body" *ngIf="selectedPatientSummary">
+
+        <div class="prescription">
+
+          <div class="text-center">
+            <h4>Dr. ABC Clinic</h4>
+            <small>Reg No: 12345 | Phone: 9999999999</small>
+            <hr>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-6">
+              <strong>Patient:</strong> {{ selectedPatientSummary.PatientsName }}
+            </div>
+            <div class="col-6 text-end">
+              <strong>Date:</strong> {{ selectedPatientSummary.VisitDate | date:'dd-MMM-yyyy hh:mm a' }}
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-6">
+              <strong>Mobile:</strong> {{ selectedPatientSummary.Mobile }}
+            </div>
+            <div class="col-6 text-end">
+              <strong>Receipt No:</strong> {{ selectedPatientSummary.ReceiptNo }}
+            </div>
+          </div>
+
+          <hr>
+
+          <strong>Diagnosis / Notes</strong>
+          <p>{{ selectedPatientSummary.Note }}</p>
+
+          <strong>Remarks</strong>
+          <p>{{ selectedPatientSummary.Remark }}</p>
+
+          <strong>Next Visit</strong>
+          <p>{{ selectedPatientSummary.NextVisitDate | date:'dd-MMM-yyyy' }}</p>
+
+         
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeSummaryModal()">Close</button>
+        <button class="btn btn-primary" (click)="printSummary()">Print</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop fade show" *ngIf="showSummaryModal"></div>
+
+
+
+</main>

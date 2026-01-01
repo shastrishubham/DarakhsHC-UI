@@ -1,0 +1,94 @@
+<main id="main" class="main">
+   <div class="pagetitle">
+      <h1>Masters</h1>
+      <nav>
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item">Patient</li>
+            <li class="breadcrumb-item active">Create Appointment</li>
+         </ol>
+      </nav>
+   </div>
+   <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Create Appointment</h5>
+                 <button type="button" (click)="viewAppointments()" class="btn btn-primary">View</button>
+               
+                 <form class="row g-3">
+                    
+                    <div class="col-md-6"> 
+                     <br/>
+                       <label for="inputName5" class="form-label">First Name <span class="mandatory-field">*</span></label> 
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.FName" name="FName">
+                    </div>
+                    <div class="col-md-6"> 
+                      <br/>
+                       <label for="inputName5" class="form-label">Last Name</label> 
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.LName" name="LName">
+                    </div>
+
+                    <div class="col-md-6">
+                       <label for="inputState" class="form-label">Mobile <span class="mandatory-field">*</span></label>
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientsAppointmentInfo.Mobile" name="Mobile1"> 
+                     </div>
+                     <div class="col-md-6">
+                        <label for="inputName5" class="form-label">Enquiry For</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientsAppointmentInfo.EnquiryFor" name="EnquiryFor">
+                     </div>
+                    
+                     <div class="col-md-6">
+                        <label for="inputState" class="form-label">Reference</label> 
+                        <!-- <select id="inputState" class="form-select" #mySelect (change)='onChangeReference(mySelect.value)' [(ngModel)]="this.patientsAppointmentInfo.MS_Reference_Id" name="MS_Reference_Id">
+                           <option *ngFor="let reference of references" [value]="reference.Id"> {{reference.Reference}}</option>
+                        </select> -->
+                      <ng-select
+  class="form-control"
+  [items]="references"
+  bindLabel="Reference"
+  bindValue="Id"
+  [(ngModel)]="patientsAppointmentInfo.MS_Reference_Id"
+  name="Reference"
+  [multiple]="false">
+</ng-select>
+
+     <!-- <ng-select [multiple]="false" [items]="references" bindLabel="Reference"
+                           bindValue="Id" [(ngModel)]="patientsAppointmentInfo.MS_Reference_Id"
+                            name="Reference">
+                           <ng-template ng-option-tmp let-item="item">
+                              {{ item.Reference }}
+                           </ng-template>
+                        </ng-select> -->
+
+                      </div>
+                      <div class="col-md-6" *ngIf="isUserSelectOtherReference">
+                        <label for="inputName5" class="form-label">Other Reference <span class="mandatory-field">*</span> </label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientsAppointmentInfo.OtherReferenceName" name="OtherReferenceName">
+                     </div>
+                      <div class="col-md-6">
+                         <label for="inputName5" class="form-label">Address</label> 
+                         <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientsAppointmentInfo.Address" name="Address">
+                      </div>
+                     
+
+                     <div class="col-md-4">
+                        <label for="inputName5" class="form-label">Appointment Date <span class="mandatory-field">*</span></label> 
+                        <input type="datetime-local" class="form-control" [(ngModel)]="this.patientsAppointmentInfo.AppointmentDate" name="AppointmentDate">
+                     </div>
+                     
+                   
+                    <div class="text-center"> 
+                       <button type="submit" class="btn btn-primary" (click)="upsertPatientAppointment()">Submit</button> 
+                    </div>
+
+                 </form>
+              </div>
+           </div>
+        </div>
+        
+     </div>
+  </section>
+</main>

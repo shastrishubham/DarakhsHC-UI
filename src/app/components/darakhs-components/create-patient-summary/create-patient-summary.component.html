@@ -1,0 +1,96 @@
+<main id="main" class="main">
+   <div class="pagetitle">
+      <h1>Masters</h1>
+      <nav>
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item">Patient</li>
+            <li class="breadcrumb-item active">Create Summary</li>
+         </ol>
+      </nav>
+   </div>
+   <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Create Patient Summary</h5>
+                 <form class="row g-3">
+                  
+                     <div class="col-md-6"> 
+                        <label for="inputState" class="form-label">Select Patient <span class="mandatory-field">*</span></label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.patientsSummaryInfo.MS_Patients_Id" name="MS_Patients_Id">
+                           <option *ngFor="let patient of patients" [value]="patient.Id"> {{patient.FullName}}</option>
+                        </select>
+                     </div>
+                     <div class="col-md-2"></div>
+                     <div class="col-md-4"> 
+                        <label for="inputName5" class="form-label">Receipt No</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientsSummaryInfo.ReceiptNo" name="ReceiptNo">
+                      </div>
+                    
+
+                     
+                  <div class="col-md-12">
+    <div class="d-flex align-items-center">
+        <label for="inputName5" class="form-label mb-0 me-3">Notes</label>
+
+        <div class="form-check mb-0">
+            <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="followUp" 
+                [(ngModel)]="patientsSummaryInfo.IsFollowUpReq"
+                name="IsFollowUpReq"
+            >
+            <label class="form-check-label ms-1" for="followUp">
+                Is Follow-Up Needed
+            </label>
+        </div>
+    </div>
+
+    <textarea 
+        class="form-control mt-1" 
+        id="inputName5" 
+        [(ngModel)]="patientsSummaryInfo.Notes" 
+        name="Note" 
+        rows="4">
+    </textarea>
+</div>
+
+
+
+                     <div class="col-md-12">
+                       <label for="inputState" class="form-label">Remark</label>
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientsSummaryInfo.Remark" name="Description"> 
+                     </div>
+                     
+                     <div class="col-md-4">
+                        <label for="inputName5" class="form-label">Next Visit</label> 
+                        <input type="datetime-local" class="form-control" [(ngModel)]="this.patientsSummaryInfo.NextVisitDate" name="NextVisitDate">
+                     </div>
+
+                     <!-- FOLLOW-UP DATE FIELD (Visible only when checked) -->
+<div class="col-md-4" *ngIf="patientsSummaryInfo.IsFollowUpReq">
+    <label for="followUpDate" class="form-label">Follow-Up Date</label>
+    <input 
+        type="date" 
+        class="form-control" 
+        id="followUpDate"
+        [(ngModel)]="patientsSummaryInfo.FollowUpDate"
+        name="FollowUpDate">
+</div>
+                   
+                    <div class="text-center"> 
+                       <button type="submit" class="btn btn-primary" (click)="upsertPatientsSummary()">Submit</button> 
+                    </div>
+
+                 </form>
+              </div>
+           </div>
+        </div>
+        
+     </div>
+  </section>
+</main>
