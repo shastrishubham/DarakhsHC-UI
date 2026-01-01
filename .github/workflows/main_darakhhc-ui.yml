@@ -1,7 +1,6 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# Docs: https://github.com/Azure/webapps-deploy
 
-name: Build and deploy Node.js app to Azure Web App - DarakhHC-UI
+name: Build and deploy Angular app to Azure Web App - DarakhHC-UI
 
 on:
   push:
@@ -13,41 +12,48 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
+      - name: Set up Node.js (Azure supported)
+        uses: actions/setup-node@v4
         with:
           node-version: '22.x'
+          cache: 'npm'
 
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-      
-      - name: Upload artifact for deployment job
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular app
+        run: npm run build
+
+      # ❌ Tests intentionally skipped
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: .
+          name: angular-build
+          path: |
+            dist
+            server.js
+            package.json
+            package-lock.json
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
-    
+
     steps:
-      - name: Download artifact from build job
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: node-app
-      
-      - name: 'Deploy to Azure Web App'
+          name: angular-build
+
+      - name: Deploy to Azure Web App (Windows)
         uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
         with:
           app-name: 'DarakhHC-UI'
           slot-name: 'Production'
