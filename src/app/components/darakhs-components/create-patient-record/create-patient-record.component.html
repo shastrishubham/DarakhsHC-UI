@@ -59,15 +59,35 @@
 
                      <div class="col-md-4">
                        <label for="inputState" class="form-label">State</label> 
-                       <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MS_State_Id" name="MS_State_Id">
+                       <!-- <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MS_State_Id" name="MS_State_Id">
                           <option *ngFor="let state of states" [value]="state.Id"> {{state.StateName}}</option>
-                       </select>
+                       </select> -->
+                         <ng-select
+  class="form-control"
+  [items]="states"
+  bindLabel="StateName"
+  bindValue="Id"
+  [(ngModel)]="patientRecord.MS_State_Id"
+  name="state"
+  [multiple]="false"
+  (change)="getCitiesByStateId(patientRecord.MS_State_Id)">
+</ng-select>
                      </div>
                      <div class="col-md-4"> 
                         <label for="inputState" class="form-label">City</label> 
-                        <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MS_City_Id" name="MS_City_Id">
+                        <!-- <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.MS_City_Id" name="MS_City_Id">
                           <option *ngFor="let city of cities" [value]="city.Id"> {{city.CityName}}</option>
-                        </select>
+                        </select> -->
+                       
+                          <ng-select
+  class="form-control"
+  [items]="cities"
+  bindLabel="CityName"
+  bindValue="Id"
+  [(ngModel)]="patientRecord.MS_City_Id"
+  name="city"
+  [multiple]="false">
+</ng-select>
                      </div>
                      <div class="col-md-4"> 
                         <label for="inputName5" class="form-label">Postal Code</label> 

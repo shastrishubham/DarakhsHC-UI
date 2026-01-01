@@ -27,12 +27,15 @@ export class CreatePatientRecordComponent implements OnInit {
   ngOnInit(): void {
     if (this.sharedService.patientsInfo != null) {
       this.patientRecord = this.sharedService.patientsInfo;
+      if (this.patientRecord.MS_State_Id && this.patientRecord.MS_State_Id != 0) {
+        this.getCitiesByStateId(this.patientRecord.MS_State_Id);
+      }
     }
 
     this.getTreatments();
     this.getReferences();
     this.getStates();
-    this.getCitiesByStateId();
+    //this.getCitiesByStateId();
   }
 
   getTreatments() {
@@ -48,13 +51,18 @@ export class CreatePatientRecordComponent implements OnInit {
   }
 
   getStates() {
+    //this.cities = [];
     this.patientService.GetStates().subscribe((res: StateInfo[]) => {
       this.states = res;
     });
   }
 
-  getCitiesByStateId() {
-    const stateId = 1;
+  getCitiesByStateId(selectedStateId: number) {
+    this.cities = [];
+    const stateId = selectedStateId;
+    if (!this.patientRecord.Id) {
+      this.patientRecord.MS_City_Id = 0;
+    }
     this.patientService.GetCitiesByStateId(stateId).subscribe((res: CityInfo[]) => {
       this.cities = res;
     });
