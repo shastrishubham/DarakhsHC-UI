@@ -1,0 +1,82 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Patients</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+             <li class="breadcrumb-item">Patient</li>
+             <li class="breadcrumb-item active">View Enquiries</li>
+          </ol>
+       </nav>
+    </div>
+    <section class="section">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <h5 class="card-title">Enquiries</h5>
+                  <button type="button" (click)="createEnquiry()" class="btn btn-primary">Add</button>
+                  <!-- <p>Add lightweight datatables to your project.</p> -->
+                  <table class="table datatable">
+                     <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th> -->
+                           <th scope="col">Enquiry Date</th>
+                           <th scope="col">Name</th>
+                           <th scope="col">Mobile</th>
+                           <th scope="col">Enquiry For</th>
+                           <th scope="col">Address</th>
+                           <th scope="col" colspan="2">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let patientEnquiry of patientEnquiries">
+                           <!-- <th scope="row">1</th> -->
+                           <td>{{ patientEnquiry.FormDate  | date:'dd-MMM-yyyy hh:mm a' }}</td>
+                           <td>{{ patientEnquiry.Name}}</td>
+                           <td>{{ patientEnquiry.Mobile }}</td>
+                           <td>{{ patientEnquiry.EnquiryFor}}</td>
+                           <td>{{ CombineAddress(patientEnquiry) }}</td>
+                           <td>
+                              <a href="javascript:void(0);" (click)="editPatientEnquiry(patientEnquiry)">Edit</a> 
+                                &nbsp;|&nbsp;
+                              <a href="javascript:void(0);" (click)="openAppointmentModal(patientEnquiry)">Convert to Appointment</a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+      <!-- Modal -->
+<div class="modal fade" tabindex="-1" [ngClass]="{'show': showApptModal}" [ngStyle]="{'display': showApptModal  ? 'block' : 'none'}" *ngIf="showApptModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Create Appointment</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <label>Date & Time</label>
+        <input type="datetime-local"
+               class="form-control"
+               [(ngModel)]="appointmentDateTime">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary" (click)="createExistingPatientAppt()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="showApptModal"></div>
+ </main>

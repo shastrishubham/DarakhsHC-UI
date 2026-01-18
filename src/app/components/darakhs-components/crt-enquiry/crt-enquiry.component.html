@@ -1,0 +1,80 @@
+<main id="main" class="main">
+   <div class="pagetitle">
+      <h1>Masters</h1>
+      <nav>
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item">Patient</li>
+            <li class="breadcrumb-item active">Create Enquiry</li>
+         </ol>
+      </nav>
+   </div>
+   <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Create Enquiry</h5>
+                 <button type="button" (click)="viewEnquiries()" class="btn btn-primary">View</button>
+               
+                 <form class="row g-3">
+                    
+                    <div class="col-md-12"> 
+                     <br/>
+                       <label for="inputName5" class="form-label">Name <span class="mandatory-field">*</span></label> 
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientEnquiry.Name" name="FName">
+                    </div>
+
+                    <div class="col-md-6">
+                       <label for="inputState" class="form-label">Mobile <span class="mandatory-field">*</span></label>
+                       <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientEnquiry.Mobile" name="Mobile1"> 
+                     </div>
+                     <div class="col-md-6">
+                        <label for="inputName5" class="form-label">Enquiry For <span class="mandatory-field">*</span></label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientEnquiry.EnquiryFor" name="EnquiryFor">
+                     </div>
+                    
+                     <div class="col-md-6">
+                        <label for="inputName5" class="form-label">Address</label> 
+                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientEnquiry.Address" name="Address">
+                     </div>
+
+                     <div class="col-md-4">
+                            <label for="inputState" class="form-label">State</label> 
+                            <ng-select
+                                   class="form-control"
+                                   [items]="states"
+                                   bindLabel="StateName"
+                                   bindValue="Id"
+                                   [(ngModel)]="patientEnquiry.MS_State_Id"
+                                   name="state"
+                                   [multiple]="false"
+                                   (change)="getCitiesByStateId(patientEnquiry.MS_State_Id)">
+                            </ng-select>
+                     </div>
+                     <div class="col-md-4"> 
+                          <label for="inputState" class="form-label">City</label> 
+                          <ng-select
+                                class="form-control"
+                                [items]="cities"
+                                bindLabel="CityName"
+                                bindValue="Id"
+                                [(ngModel)]="patientEnquiry.MS_City_Id"
+                                name="city"
+                                [multiple]="false">
+                          </ng-select>
+                     </div>
+                   
+                    <div class="text-center"> 
+                       <button type="submit" class="btn btn-primary" (click)="upsertPatientEnquiry()">Submit</button> 
+                    </div>
+
+                 </form>
+              </div>
+           </div>
+        </div>
+        
+     </div>
+  </section>
+</main>

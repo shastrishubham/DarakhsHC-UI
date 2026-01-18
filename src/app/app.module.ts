@@ -67,6 +67,9 @@ import { ShowReferenceComponent } from './components/darakhs-components/show-ref
 import { CrtTreatmentComponent } from './components/darakhs-components/crt-treatment/crt-treatment.component';
 import { ShowTreatmentComponent } from './components/darakhs-components/show-treatment/show-treatment.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CrtEnquiryComponent } from './components/darakhs-components/crt-enquiry/crt-enquiry.component';
+import { ViewEnquiryComponent } from './components/darakhs-components/view-enquiry/view-enquiry.component';
+import { ReportEnquiriesComponent } from './components/darakhs-components/report-enquiries/report-enquiries.component';
 //import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
@@ -128,7 +131,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CrtReferenceComponent,
     ShowReferenceComponent,
     CrtTreatmentComponent,
-    ShowTreatmentComponent
+    ShowTreatmentComponent,
+    CrtEnquiryComponent,
+    ViewEnquiryComponent,
+    ReportEnquiriesComponent
   ],
   imports: [
     BrowserModule,

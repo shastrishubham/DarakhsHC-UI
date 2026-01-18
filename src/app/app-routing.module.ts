@@ -53,6 +53,9 @@ import { ShowTreatmentComponent } from './components/darakhs-components/show-tre
 import { ShowReferenceComponent } from './components/darakhs-components/show-reference/show-reference.component';
 import { CrtReferenceComponent } from './components/darakhs-components/crt-reference/crt-reference.component';
 import { CrtTreatmentComponent } from './components/darakhs-components/crt-treatment/crt-treatment.component';
+import { ViewEnquiryComponent } from './components/darakhs-components/view-enquiry/view-enquiry.component';
+import { CrtEnquiryComponent } from './components/darakhs-components/crt-enquiry/crt-enquiry.component';
+import { ReportEnquiriesComponent } from './components/darakhs-components/report-enquiries/report-enquiries.component';
 
 const routes: Routes = [
   { path: '', component: PatientDashboardComponent },
@@ -102,10 +105,13 @@ const routes: Routes = [
   { path: 'view-exist-patient', component: ViewExistingPatientsComponent },
   { path: 'view-item-serialnos', component: ViewItemSerialNosComponent },
   { path: 'crt-item-serialnos', component: CreateItemSerialNosComponent },
+  { path: 'crt-enquiry', component: CrtEnquiryComponent },
+  { path: 'view-enquiry', component: ViewEnquiryComponent },
 
   // Reports
   { path: 'rt-pat-appt', component: ReportPatientAppointmentsComponent },
   { path: 'rt-pat-records', component: ReportPatientRecordsComponent },
+  { path: 'rt-pat-enquiries', component: ReportEnquiriesComponent },
 
   // Master
   { path: 'master-ref', component: ShowReferenceComponent },

@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { PatientsSummaryInfo } from '../model/PatientsSummaryInfo';
 import { PatientsAppointmentInfo } from '../model/PatientsAppointmentInfo';
 import { PatientInventoryInfo } from '../model/PatientInventoryInfo';
+import { PatientEnquiry } from '../model/PatientEnquiry';
 
 @Injectable({
   providedIn: 'root'
@@ -95,19 +96,40 @@ export class PatientsInfoService {
     return this.httphelper.getMethod(urlString, queryParams, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
   }
 
+  UpsertPatientEnquiry(patientEnquiry: PatientEnquiry) {
+    patientEnquiry.MS_Comp_Id = myGlobals.CompId;
+    const urlString = myGlobals.HrmsAPIUrl + 'api/PatientsInfo/UpsertPatientEnquiry';
+    return this.httphelper.postMethod(urlString, patientEnquiry, null, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
+  }
+
   UpsertPatientAppointment(appointmentInfo: PatientsAppointmentInfo) {
     appointmentInfo.MS_Comp_Id = myGlobals.CompId;
     const urlString = myGlobals.HrmsAPIUrl + 'api/PatientsInfo/UpsertPatientAppointment';
-    //const bodystring = JSON.stringify(appointmentInfo);
     return this.httphelper.postMethod(urlString, appointmentInfo, null, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
   }
 
   CreateAppointmentForExistingPatient(appointmentInfo: PatientsAppointmentInfo) {
     appointmentInfo.MS_Comp_Id = myGlobals.CompId;
     const urlString = myGlobals.HrmsAPIUrl + 'api/PatientsInfo/CreateAppointmentForExistingPatient';
-   // const bodystring = JSON.stringify(appointmentInfo);
+    // const bodystring = JSON.stringify(appointmentInfo);
     return this.httphelper.postMethod(urlString, appointmentInfo, null, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
   }
+
+  GetPatientEnquiries(companyId: any = myGlobals.CompId, fromDt: any = null, toDt: any = null) {
+    if (companyId == null || companyId == undefined || companyId == 0) {
+      companyId = myGlobals.CompId;
+    }
+    if (fromDt == null || fromDt == undefined) {
+      fromDt = new Date().toISOString().substring(0, 10);
+    }
+    if (toDt == null || toDt == undefined) {
+      toDt = new Date().toISOString().substring(0, 10);
+    }
+    const urlString = myGlobals.HrmsAPIUrl + 'api/PatientsInfo/GetPatientEnquiriesByDate';
+    const queryParams = { compId: companyId, fromEnquiryDt: fromDt, toEnquiryDt: toDt };
+    return this.httphelper.getMethod(urlString, queryParams, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
+  }
+
 
   GetPatientAppointments(companyId: any = myGlobals.CompId, fromDt: any = null, toDt: any = null) {
     if (companyId == null || companyId == undefined || companyId == 0) {
@@ -162,7 +184,7 @@ export class PatientsInfoService {
     return this.httphelper.getMethod(urlString, queryParams, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
   }
 
-   GetPatientsFollowUpListByDate(followUpDt: any) {
+  GetPatientsFollowUpListByDate(followUpDt: any) {
     const urlString = myGlobals.HrmsAPIUrl + 'api/PatientsInfo/GetPatientsFollowUpListByDate';
     const queryParams = { compId: myGlobals.CompId, followUpDt: followUpDt };
     return this.httphelper.getMethod(urlString, queryParams, enums.HttpContentType.Json, enums.HttpAccept.Json, false);

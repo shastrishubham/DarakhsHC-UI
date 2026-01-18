@@ -20,7 +20,7 @@ export class ViewExistingPatientsComponent implements OnInit {
   selectedPatientSummary: PatientHistory;
   showApptModal: boolean = false;
   showSummaryModal = false;
-  appointmentDateTime: string = '';
+  appointmentDateTime = new Date();
   patientHistory: PatientHistory[] = [];
   IsShowPatientHistory: boolean = false;
 
@@ -54,7 +54,7 @@ export class ViewExistingPatientsComponent implements OnInit {
 
   closeModal() {
     this.showApptModal = false;
-    this.appointmentDateTime = '';
+    this.appointmentDateTime = null;
   }
 
   CombineMobiles(patientRecord: PatientsInfo) {

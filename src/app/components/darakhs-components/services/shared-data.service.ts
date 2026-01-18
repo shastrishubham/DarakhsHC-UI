@@ -8,6 +8,7 @@ import { ItemSerialNosInfo } from '../model/ItemSerialNosInfo';
 import { ItemTypes } from '../model/ItemTypes';
 import { ReferencesInfo } from '../model/ReferencesInfo';
 import { TreatmentsInfo } from '../model/TreatmentsInfo';
+import { PatientEnquiry } from '../model/PatientEnquiry';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class SharedDataService {
 
   patientsInfo: PatientsInfo;
   patientsAppointmentInfo: PatientsAppointmentInfo;
+  patientEnquiry: PatientEnquiry;
   itemInfo: ItemInfo;
   itemCompanyInfo: ItemCompanyInfo;
   patientsSummaryInfo: PatientsSummaryInfo;
