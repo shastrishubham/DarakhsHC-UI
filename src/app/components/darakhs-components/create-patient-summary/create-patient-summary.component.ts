@@ -84,6 +84,11 @@ export class CreatePatientSummaryComponent implements OnInit {
       return false;
     }
 
+    if (this.patientsSummaryInfo.Amount != null && this.patientsSummaryInfo.Amount < 0) {
+      alert("Amount cannot be less than 0");
+      return false; // stop form submission
+    }
+
     return true;
   }
 
