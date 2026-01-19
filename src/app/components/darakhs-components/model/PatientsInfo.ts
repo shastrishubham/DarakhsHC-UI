@@ -1,5 +1,5 @@
 export class PatientsInfo {
-    public Id: number                           ;
+    public Id: number;
     public FormDate: any;
     public MS_Comp_Id: number;
     public Patients_Appointment_Id: number;
@@ -27,4 +27,5 @@ export class PatientsInfo {
     public OtherReferenceName: string;
     public Remark: string;
     public VisitDate: any;
+    public Gender: string;
 }

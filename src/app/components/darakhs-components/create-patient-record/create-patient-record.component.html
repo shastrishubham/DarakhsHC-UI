@@ -35,13 +35,22 @@
                      </select>
                    </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                        <label for="inputState" class="form-label">Mobile 1 <span class="mandatory-field">*</span></label>
                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.Mobile1" name="Mobile1"> 
                      </div>
-                     <div class="col-md-5"> 
+                     <div class="col-md-4"> 
                        <label for="inputName5" class="form-label">Mobile 2</label> 
                        <input type="text" class="form-control" id="inputName5" [(ngModel)]="this.patientRecord.Mobile2" name="Mobile2">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputName5" class="form-label">Gender</label> 
+                        <select id="inputState" class="form-select" [(ngModel)]="this.patientRecord.Gender" name="Gender">
+                              <option value=null selected>Choose...</option>
+                              <option value="M">Male</option>
+                              <option value="F">Female</option>
+                              <option value="O">Other</option>
+                        </select>
                     </div>
                     <div class="col-md-2">
                         <label for="inputName5" class="form-label">DOB</label> 

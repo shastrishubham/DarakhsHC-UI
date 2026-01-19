@@ -81,6 +81,13 @@
         [(ngModel)]="patientsSummaryInfo.FollowUpDate"
         name="FollowUpDate">
 </div>
+<div class="col-md-8"></div>
+<div class="col-md-4">
+    
+                        <label for="inputName5" class="form-label">Amount</label> 
+                        <input type="number" class="form-control" [(ngModel)]="this.patientsSummaryInfo.Amount" name="Amount">
+    
+</div>
                    
                     <div class="text-center"> 
                        <button type="submit" class="btn btn-primary" (click)="upsertPatientsSummary()">Submit</button> 

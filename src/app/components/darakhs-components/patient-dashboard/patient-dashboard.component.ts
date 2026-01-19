@@ -56,56 +56,42 @@ export class PatientDashboardComponent implements OnInit {
   }
 
   setHearingVsSpeakingChart(TreatmentsDonutChart: TreatmentsDonutChartDto[]) {
-    // Default values (important if no data)
-    let HearingCount = 0;
-    let SpeakingCount = 0;
-    TreatmentsDonutChart.forEach(item => {
-      if (item.TreatmentType === 'Hearing') {
-        HearingCount = item.TreatmentCount;
-      } else if (item.TreatmentType === 'Speaking') {
-        SpeakingCount = item.TreatmentCount;
-      }
-    });
+    if (!TreatmentsDonutChart || TreatmentsDonutChart.length === 0) return;
 
-    const chartDom1 = document.querySelector("#trafficChart2") as HTMLElement;
-    const trafficChart2 = echarts.init(chartDom1);
+    const chartDom = document.querySelector("#trafficChart2") as HTMLElement;
+    const chart = echarts.init(chartDom);
 
-    trafficChart2.setOption({
-      tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        top: '5%',
-        left: 'center'
-      },
+    // Build dynamic data array
+    const data = TreatmentsDonutChart.map(item => ({
+      value: item.TreatmentCount,
+      name: item.TreatmentType
+    }));
+
+    const options = {
+      tooltip: { trigger: 'item' },
+      legend: { top: '5%', left: 'center' },
       series: [
         {
           name: 'Patients',
           type: 'pie',
           radius: ['40%', '70%'], // Donut
           avoidLabelOverlap: false,
-          label: {
-            show: false,
-            position: 'center'
-          },
+          label: { show: false, position: 'center' },
           emphasis: {
             label: {
               show: true,
-              fontSize: '18',
+              fontSize: 18,
               fontWeight: 'bold',
               formatter: '{b}\n{c}'
             }
           },
-          labelLine: {
-            show: false
-          },
-          data: [
-            { value: HearingCount, name: 'Hearing' },
-            { value: SpeakingCount, name: 'Speaking' }
-          ]
+          labelLine: { show: false },
+          data: data
         }
       ]
-    });
+    };
+
+    chart.setOption(options);
   }
 
   setAppointmentVsWalkinChart(AppointmentVsWalkin: DonutChartDto[]) {
@@ -164,43 +150,37 @@ export class PatientDashboardComponent implements OnInit {
   }
 
   setMonthWiseTreatmentsChart(TreatmentsMonthlyStats: TreatmentsMonthlyStatsDto[]) {
-    // Month-wise Treatment Chart
-    const monthlyData1 = TreatmentsMonthlyStats || [];
-    const categories2 = monthlyData1.map(x => x.MonthName);
-    const counts2 = monthlyData1.map(x => x.HearingCount);
-    const counts12 = monthlyData1.map(x => x.SpeakingCount);
+    // // Month-wise Treatment Chart
+    if (!TreatmentsMonthlyStats || TreatmentsMonthlyStats.length === 0) return;
 
-    const options2 = {
-      series: [{
-        name: 'HearingCount',
-        data: counts2
-      }, {
-        name: 'SpeakingCount',
-        data: counts12
-      }],
+    // X-axis categories = months
+    const categories = TreatmentsMonthlyStats.map(x => x.MonthName);
+
+    // Dynamic series keys from first month
+    const keys = Object.keys(TreatmentsMonthlyStats[0].TreatmentCounts);
+
+    // Build series dynamically
+    const series = keys.map(key => ({
+      name: key,
+      data: TreatmentsMonthlyStats.map(x => x.TreatmentCounts[key])
+    }));
+
+    // ApexCharts options
+    const options = {
+      series,
       chart: {
-        height: 350,
         type: 'area',
+        height: 350,
         toolbar: { show: false },
-        zoom: {
-          enabled: false   // 🔴 disables mouse scroll & drag zoom
-        }
+        zoom: { enabled: false }
       },
-      stroke: {
-        curve: 'smooth',
-        width: 2
-      },
-      xaxis: {
-        categories: categories2
-      }
+      stroke: { curve: 'smooth', width: 2 },
+      xaxis: { categories },
+      legend: { position: 'top' }
     };
 
-    const chart2 = new ApexCharts(
-      document.querySelector("#reportsChart3"),
-      options2
-    );
-
-    chart2.render();
+    const chart = new ApexCharts(document.querySelector('#reportsChart3'), options);
+    chart.render();
   }
 
   setMonthWisePatientsChart(MonthlyStats: MonthlyStatsDto[]) {

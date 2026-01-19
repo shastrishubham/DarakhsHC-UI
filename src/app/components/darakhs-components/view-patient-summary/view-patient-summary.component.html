@@ -26,6 +26,7 @@
                            <th scope="col">Description</th>
                            <th scope="col">Next Visit Date</th>
                            <th scope="col">Follow-Up Req/Date</th>
+                           <th scope="col">Amount</th>
                            <th scope="col" colspan="3">Action</th>
                         </tr>
                      </thead>
@@ -41,6 +42,7 @@
                                    ({{ patientSummary.FollowUpDate | date:'dd-MMM-yyyy' }})
                                  </span>
                            </td>
+                            <td>Rs. {{ patientSummary.Amount }}/-</td>
                            <td>
                               <a href="javascript:void(0);" (click)="editPatientSummary(patientSummary)">Edit</a> &nbsp;&nbsp; 
                               <!-- | &nbsp;&nbsp;

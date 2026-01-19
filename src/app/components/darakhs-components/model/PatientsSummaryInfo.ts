@@ -21,6 +21,8 @@ export class PatientsSummaryInfo {
     public Remark: string;
     public Notes: string;
     public NextVisitDate: any;
+    public Amount: number;
+    public Gender: string;
 
     public IsFollowUpReq: false;
     public FollowUpDate?: string | null;

@@ -173,8 +173,16 @@
           <strong>Remarks</strong>
           <p>{{ selectedPatientSummary.Remark }}</p>
 
-          <strong>Next Visit</strong>
-          <p>{{ selectedPatientSummary.NextVisitDate | date:'dd-MMM-yyyy hh:mm a' }}</p>
+          <strong *ngIf="selectedPatientSummary.NextVisitDate && selectedPatientSummary.NextVisitDate !== '0001-01-01T00:00:00'">
+            Next Visit
+         </strong>
+         <p *ngIf="selectedPatientSummary.NextVisitDate && selectedPatientSummary.NextVisitDate !== '0001-01-01T00:00:00'">
+            {{ selectedPatientSummary.NextVisitDate | date:'dd-MMM-yyyy hh:mm a' }}
+         </p>
+
+          <strong>Amount</strong>
+          <p>Rs. {{ selectedPatientSummary.Amount }}/-</p>
+
 
          
 

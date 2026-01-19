@@ -38,8 +38,9 @@ export class TreatmentsMonthlyStatsDto {
     public MonthName: string;
     public MonthNumber: number;
     public YearNumber: number;
-    public HearingCount: number;
-    public SpeakingCount: number;
+
+    // Key = treatment name, Value = count
+    public TreatmentCounts!: { [treatmentName: string]: number };
 }
 
 export class TreatmentsDonutChartDto {

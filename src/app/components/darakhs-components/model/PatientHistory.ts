@@ -13,5 +13,7 @@ export class PatientHistory {
     public Description: string;
     public Note: string;
     public NextVisitDate: any;
- 
+    public Amount: number;
+    public Gender: string;
+
 }
