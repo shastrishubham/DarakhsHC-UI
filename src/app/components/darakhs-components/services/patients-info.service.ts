@@ -53,7 +53,7 @@ export class PatientsInfoService {
     return this.httphelper.postMethod(urlString, patientsInfo, null, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
   }
 
-  GetPatientInfo(companyId: any = myGlobals.CompId, fromDt: any = null, toDt: any = null) {
+  GetPatientInfo(companyId: any = myGlobals.CompId, fromDt: any = null, toDt: any = null, referenceId: any = null) {
     if (companyId == null || companyId == undefined || companyId == 0) {
       companyId = myGlobals.CompId;
     }
@@ -64,8 +64,24 @@ export class PatientsInfoService {
       toDt = new Date().toISOString().substring(0, 10);
     }
     const urlString = myGlobals.HrmsAPIUrl + 'api/PatientsInfo/GetPatientInfo';
-    const queryParams = { CompanyId: companyId, fromDt: fromDt, toDt: toDt };
+    const queryParams = { CompanyId: companyId, fromDt: fromDt, toDt: toDt, referenceId: referenceId };
     return this.httphelper.getMethod(urlString, queryParams, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
+  }
+
+   GetPatientInfoWithTreamentFilter(companyId: any = myGlobals.CompId, fromDt: any = null, toDt: any = null, 
+    treatmentId: any = null) {
+      if (companyId == null || companyId == undefined || companyId == 0) {
+        companyId = myGlobals.CompId;
+      }
+      if (fromDt == null || fromDt == undefined) {
+        fromDt = new Date().toISOString().substring(0, 10);
+      }
+      if (toDt == null || toDt == undefined) {
+        toDt = new Date().toISOString().substring(0, 10);
+      }
+      const urlString = myGlobals.HrmsAPIUrl + 'api/PatientsInfo/GetPatientInfoWithTreamentFilter';
+      const queryParams = { CompanyId: companyId, fromDt: fromDt, toDt: toDt, treatmentId: treatmentId };
+      return this.httphelper.getMethod(urlString, queryParams, enums.HttpContentType.Json, enums.HttpAccept.Json, false);
   }
 
   GetTodaysPatientsInfo(companyId: any = myGlobals.CompId) {

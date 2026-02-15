@@ -68,6 +68,7 @@ export class ViewPatientAppointmentComponent implements OnInit {
         } else {
           // Normal success flow
           alert("Patient saved successfully!");
+          this.getPatientAppointments();
         }
       });
     }

@@ -42,9 +42,6 @@
                     
                      <div class="col-md-6">
                         <label for="inputState" class="form-label">Reference</label> 
-                        <!-- <select id="inputState" class="form-select" #mySelect (change)='onChangeReference(mySelect.value)' [(ngModel)]="this.patientsAppointmentInfo.MS_Reference_Id" name="MS_Reference_Id">
-                           <option *ngFor="let reference of references" [value]="reference.Id"> {{reference.Reference}}</option>
-                        </select> -->
                       <ng-select
   class="form-control"
   [items]="references"

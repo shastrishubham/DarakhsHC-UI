@@ -72,6 +72,7 @@ export class ViewEnquiryComponent implements OnInit {
   createExistingPatientAppt() {
 
     let apptInfo = new PatientsAppointmentInfo();
+    apptInfo.Patient_Enquiry_Id = this.selectedEnquiry.Id;
     apptInfo.PatientsName = this.selectedEnquiry.Name;
     apptInfo.Mobile = this.selectedEnquiry.Mobile;
     apptInfo.AppointmentDate = this.appointmentDateTime;
@@ -87,6 +88,7 @@ export class ViewEnquiryComponent implements OnInit {
         // Normal success flow
         this.closeModal();
         alert("Patient saved successfully!");
+        this.getPatientEnquiries();
       }
     });
   }

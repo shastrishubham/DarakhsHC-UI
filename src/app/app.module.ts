@@ -70,6 +70,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CrtEnquiryComponent } from './components/darakhs-components/crt-enquiry/crt-enquiry.component';
 import { ViewEnquiryComponent } from './components/darakhs-components/view-enquiry/view-enquiry.component';
 import { ReportEnquiriesComponent } from './components/darakhs-components/report-enquiries/report-enquiries.component';
+import { ReportReferencesComponent } from './components/darakhs-components/report-references/report-references.component';
+import { ReportTreatmentsComponent } from './components/darakhs-components/report-treatments/report-treatments.component';
 //import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
@@ -134,7 +136,9 @@ import { ReportEnquiriesComponent } from './components/darakhs-components/report
     ShowTreatmentComponent,
     CrtEnquiryComponent,
     ViewEnquiryComponent,
-    ReportEnquiriesComponent
+    ReportEnquiriesComponent,
+    ReportReferencesComponent,
+    ReportTreatmentsComponent,
   ],
   imports: [
     BrowserModule,

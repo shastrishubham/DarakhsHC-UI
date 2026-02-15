@@ -2,6 +2,7 @@ export class PatientsAppointmentInfo {
         public Id: number;
         public FormDate: any;
         public MS_Comp_Id: number;
+        public Patient_Enquiry_Id: number;
         public PatientsName: string;
         public EnquiryFor: string;
         public Mobile: number;

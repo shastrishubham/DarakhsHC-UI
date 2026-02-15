@@ -56,6 +56,8 @@ import { CrtTreatmentComponent } from './components/darakhs-components/crt-treat
 import { ViewEnquiryComponent } from './components/darakhs-components/view-enquiry/view-enquiry.component';
 import { CrtEnquiryComponent } from './components/darakhs-components/crt-enquiry/crt-enquiry.component';
 import { ReportEnquiriesComponent } from './components/darakhs-components/report-enquiries/report-enquiries.component';
+import { ReportReferencesComponent } from './components/darakhs-components/report-references/report-references.component';
+import { ReportTreatmentsComponent } from './components/darakhs-components/report-treatments/report-treatments.component';
 
 const routes: Routes = [
   { path: '', component: PatientDashboardComponent },
@@ -112,6 +114,8 @@ const routes: Routes = [
   { path: 'rt-pat-appt', component: ReportPatientAppointmentsComponent },
   { path: 'rt-pat-records', component: ReportPatientRecordsComponent },
   { path: 'rt-pat-enquiries', component: ReportEnquiriesComponent },
+  { path: 'rt-pat-references', component: ReportReferencesComponent },
+  { path: 'rt-pat-treatments', component: ReportTreatmentsComponent},
 
   // Master
   { path: 'master-ref', component: ShowReferenceComponent },
