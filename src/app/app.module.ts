@@ -72,6 +72,8 @@ import { ViewEnquiryComponent } from './components/darakhs-components/view-enqui
 import { ReportEnquiriesComponent } from './components/darakhs-components/report-enquiries/report-enquiries.component';
 import { ReportReferencesComponent } from './components/darakhs-components/report-references/report-references.component';
 import { ReportTreatmentsComponent } from './components/darakhs-components/report-treatments/report-treatments.component';
+import { DataTableComponent } from './components/darakhs-components/data-table/data-table.component';
+import { TableHeadComponent } from './components/darakhs-components/data-table/table-head.component';
 //import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
@@ -139,6 +141,8 @@ import { ReportTreatmentsComponent } from './components/darakhs-components/repor
     ReportEnquiriesComponent,
     ReportReferencesComponent,
     ReportTreatmentsComponent,
+    DataTableComponent,
+    TableHeadComponent,
   ],
   imports: [
     BrowserModule,

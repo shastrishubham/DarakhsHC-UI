@@ -3,6 +3,7 @@ import { PatientsInfo } from '../model/PatientsInfo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientsInfoService } from '../services/patients-info.service';
 import { SharedDataService } from '../services/shared-data.service';
+import { TableState, dateText } from '../data-table/table-state';
 
 @Component({
   selector: 'app-report-patient-records',
@@ -12,6 +13,13 @@ import { SharedDataService } from '../services/shared-data.service';
 export class ReportPatientRecordsComponent implements OnInit {
 
   patients: PatientsInfo[] = [];
+  table = new TableState<PatientsInfo>([
+    { key: 'FormDate', label: 'Creation Date', value: x => x.FormDate, text: x => dateText(x.FormDate, 'dd-MMM-yyyy') },
+    { key: 'FullName', label: 'Name', value: x => x.FullName },
+    { key: 'Mobile', label: 'Mobile', value: x => this.CombineMobiles(x) },
+    { key: 'Address', label: 'Address', value: x => this.CombineAddress(x) },
+    { key: 'TreamentName', label: 'Treatment', value: x => x.TreamentName }
+  ]);
   fromDt: any = new Date().toISOString().substring(0, 10);
   toDt: any = new Date().toISOString().substring(0, 10);
   constructor(private route: ActivatedRoute, private router: Router, private patientsService: PatientsInfoService,
@@ -25,6 +33,7 @@ export class ReportPatientRecordsComponent implements OnInit {
     this.patientsService.GetPatientInfo(0, this.fromDt, this.toDt).subscribe(res => {
       console.log(res);
       this.patients = res;
+      this.table.setData(res);
     });
   }
 

@@ -3,6 +3,7 @@ import { PatientsSummaryInfo } from '../model/PatientsSummaryInfo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientsInfoService } from '../services/patients-info.service';
 import { SharedDataService } from '../services/shared-data.service';
+import { TableState } from '../data-table/table-state';
 declare var bootstrap: any;
 
 @Component({
@@ -15,6 +16,12 @@ export class PatientFollowupDateComponent implements OnInit {
   followUpPatients: PatientsSummaryInfo[] = [];
   selectedPatient: PatientsSummaryInfo | null = null;
   followUpDt: any = new Date().toISOString().substring(0, 10);
+  table = new TableState<PatientsSummaryInfo>([
+    { key: 'PatientsName', label: 'Name', value: x => x.PatientsName },
+    { key: 'Mobile', label: 'Mobile', value: x => x.Mobile?.replace('/0', '') },
+    { key: 'Address', label: 'Address', value: x => this.CombineAddress(x) },
+    { key: 'TreamentName', label: 'Treatment', value: x => x.TreamentName }
+  ]);
   constructor(private route: ActivatedRoute, private router: Router, private patientsService: PatientsInfoService,
     private sharedService: SharedDataService) { }
 
@@ -26,6 +33,7 @@ export class PatientFollowupDateComponent implements OnInit {
     this.patientsService.GetPatientsFollowUpListByDate(this.followUpDt).subscribe(res => {
       console.log(res);
       this.followUpPatients = res;
+      this.table.setData(res);
     });
   }
 

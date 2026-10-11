@@ -5,6 +5,7 @@ import { PatientsInfoService } from '../services/patients-info.service';
 import { SharedDataService } from '../services/shared-data.service';
 import { MastersInfoService } from '../services/masters-info.service';
 import { PatientsInfo } from '../model/PatientsInfo';
+import { TableState, dateText } from '../data-table/table-state';
 
 @Component({
   selector: 'app-report-references',
@@ -15,6 +16,14 @@ export class ReportReferencesComponent implements OnInit {
 
   ms_references: ReferencesInfo[] = [];
   patients: PatientsInfo[] = [];
+  table = new TableState<PatientsInfo>([
+    { key: 'FormDate', label: 'Creation Date', value: x => x.FormDate, text: x => dateText(x.FormDate, 'dd-MMM-yyyy') },
+    { key: 'FullName', label: 'Name', value: x => x.FullName },
+    { key: 'Mobile', label: 'Mobile', value: x => this.CombineMobiles(x) },
+    { key: 'Reference', label: 'Reference', value: x => x.Reference },
+    { key: 'Address', label: 'Address', value: x => this.CombineAddress(x) },
+    { key: 'TreamentName', label: 'Treatment', value: x => x.TreamentName }
+  ]);
   fromDt: any = new Date().toISOString().substring(0, 10);
   toDt: any = new Date().toISOString().substring(0, 10);
   referenceId: any = 0;
@@ -36,6 +45,7 @@ export class ReportReferencesComponent implements OnInit {
     this.patientsService.GetPatientInfo(0, this.fromDt, this.toDt, this.referenceId).subscribe(res => {
       console.log(res);
       this.patients = res;
+      this.table.setData(res);
     });
   }
 

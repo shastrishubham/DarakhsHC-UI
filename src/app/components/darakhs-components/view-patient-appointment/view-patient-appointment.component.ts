@@ -5,6 +5,7 @@ import { PatientsInfoService } from '../services/patients-info.service';
 import { SharedDataService } from '../services/shared-data.service';
 import { PatientsAppointmentInfo } from '../model/PatientsAppointmentInfo';
 import { DatePipe } from '@angular/common';
+import { TableState, dateText } from '../data-table/table-state';
 
 @Component({
   selector: 'view-patient-appointment',
@@ -16,6 +17,12 @@ export class ViewPatientAppointmentComponent implements OnInit {
   patientsAppts: PatientsAppointmentInfo[] = [];
   fromDt: any = new Date().toISOString().substring(0, 10);
   toDt: any = new Date().toISOString().substring(0, 10);
+  table = new TableState<PatientsAppointmentInfo>([
+    { key: 'PatientsName', label: 'Name', value: x => x.PatientsName },
+    { key: 'Mobile', label: 'Mobile', value: x => x.Mobile },
+    { key: 'AppointmentDate', label: 'Appointment Date', value: x => x.AppointmentDate, text: x => dateText(x.AppointmentDate, 'dd-MMM-yyyy hh:mm a') },
+    { key: 'EnquiryFor', label: 'Enquiry For', value: x => x.EnquiryFor }
+  ]);
   constructor(private route: ActivatedRoute, private router: Router, private patientsService: PatientsInfoService,
     private sharedService: SharedDataService, public datepipe: DatePipe) { }
 
@@ -27,6 +34,7 @@ export class ViewPatientAppointmentComponent implements OnInit {
     this.patientsService.GetPatientAppointments(0, this.fromDt, this.toDt).subscribe(res => {
       console.log(res);
       this.patientsAppts = res;
+      this.table.setData(res);
     });
   }
 

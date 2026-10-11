@@ -17,19 +17,11 @@
                   <h5 class="card-title">Patients</h5>
                   <button type="button" (click)="createNewPatientRecord()" class="btn btn-primary">Add</button>
                   <!-- <p>Add lightweight datatables to your project.</p> -->
-                  <table class="table datatable">
-                     <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th> -->
-                           <th scope="col">Name</th>
-                           <th scope="col">Mobile</th>
-                           <th scope="col">Address</th>
-                           <th scope="col">Treatment</th>
-                           <th scope="col" colspan="2">Action</th>
-                        </tr>
-                     </thead>
+                  <app-data-table [table]="table">
+                  <table class="table">
+                     <thead appTableHead [table]="table" [actions]="true"></thead>
                      <tbody>
-                        <tr *ngFor="let patient of patients">
+                        <tr *ngFor="let patient of table.pageRows">
                            <!-- <th scope="row">1</th> -->
                            <td>{{patient.FullName}}</td>
                            <td>{{ CombineMobiles(patient) }}</td>
@@ -43,6 +35,7 @@
                         </tr>
                      </tbody>
                   </table>
+                  </app-data-table>
                </div>
             </div>
          </div>

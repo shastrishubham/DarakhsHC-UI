@@ -6,6 +6,7 @@ import { SharedDataService } from '../services/shared-data.service';
 import { PatientsAppointmentInfo } from '../model/PatientsAppointmentInfo';
 import { DatePipe } from '@angular/common';
 import { PatientHistory } from '../model/PatientHistory';
+import { TableState } from '../data-table/table-state';
 
 @Component({
   selector: 'view-existing-patients',
@@ -23,27 +24,57 @@ export class ViewExistingPatientsComponent implements OnInit {
   appointmentDateTime = new Date();
   patientHistory: PatientHistory[] = [];
   IsShowPatientHistory: boolean = false;
+  table = new TableState<PatientsInfo>([
+    { key: 'VisitDate', label: 'Recent Visit', value: x => x.VisitDate, text: x => this.convertDateToFormat(x.VisitDate) },
+    { key: 'FullName', label: 'Name', value: x => x.FullName },
+    { key: 'Mobile', label: 'Mobile', value: x => this.CombineMobiles(x) },
+    { key: 'Address', label: 'Address', value: x => this.CombineAddress(x) },
+    { key: 'TreamentName', label: 'Treatment', value: x => x.TreamentName }
+  ]);
+  historyTable = new TableState<PatientHistory>([
+    { key: 'VisitDate', label: 'Visit Date', value: x => x.VisitDate, text: x => this.convertDateToFormat(x.VisitDate) },
+    { key: 'ReceiptNo', label: 'Receipt', value: x => x.ReceiptNo },
+    { key: 'PatientsName', label: 'Name', value: x => x.PatientsName },
+    { key: 'Mobile', label: 'Mobile', value: x => x.Mobile },
+    { key: 'Remark', label: 'Remark', value: x => x.Remark },
+    { key: 'Note', label: 'Note', value: x => x.Note }
+  ]);
 
   constructor(private route: ActivatedRoute, private router: Router, private patientsService: PatientsInfoService,
     private sharedService: SharedDataService, public datepipe: DatePipe) { }
 
   ngOnInit(): void {
     // this.getPatientAppointments();
+
+    // Opened from the header search: ?q=<name or mobile>&id=<patient picked>
+    this.route.queryParams.subscribe(params => {
+      const query = params['q'];
+      if (query) {
+        this.value = query;
+        this.searchPatients(query, Number(params['id']) || 0);
+      }
+    });
   }
 
   getExistingPatientsInfoByValue() {
-    if (this.value.length > 4) {
-      this.patientsService.GetExistingPatientsInfoByValue(this.value).subscribe(res => {
-        console.log(res);
-        if (res != null && res.length > 0) {
-          this.patients = res;
-          this.IsShowPatientHistory = false;
-        } else {
-          alert('No records found...!!');
-          this.patients = [];
-        }
-      });
+    if (this.value && this.value.length > 4) {
+      this.searchPatients(this.value);
     }
+  }
+
+  searchPatients(value: string, patientId: number = 0) {
+    this.patientsService.GetExistingPatientsInfoByValue(value).subscribe(res => {
+      console.log(res);
+      if (res != null && res.length > 0) {
+        const selected = res.filter((x: PatientsInfo) => x.Id == patientId);
+        this.patients = selected.length > 0 ? selected : res;
+        this.IsShowPatientHistory = false;
+      } else {
+        alert('No records found...!!');
+        this.patients = [];
+      }
+      this.table.setData(this.patients);
+    });
   }
 
   /* Appointment */
@@ -135,6 +166,7 @@ export class ViewExistingPatientsComponent implements OnInit {
     this.patientsService.GetPatientHistoriesById(patientsInfo.Id).subscribe(res => {
       if (res != null && res.length > 0) {
         this.patientHistory = res;
+        this.historyTable.setData(res);
         if (this.patientHistory.length > 0) {
           this.IsShowPatientHistory = true;
         }

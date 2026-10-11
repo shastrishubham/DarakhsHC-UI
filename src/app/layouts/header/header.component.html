@@ -1,7 +1,30 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between"> <a routerLink="/" class="logo d-flex align-items-center"> <img src="assets/img/KlugeLogo.png" alt=""> <span class="d-none d-lg-block">Kluge </span> Software </a> <i (click)="sidebarToggle()" class="bi bi-list toggle-sidebar-btn"></i></div>
     <div class="search-bar">
-       <form class="search-form d-flex align-items-center" method="POST" action="#"> <input type="text" name="query" placeholder="Search" title="Enter search keyword"> <button type="submit" title="Search"><i class="bi bi-search"></i></button></form>
+       <div class="patient-search">
+          <form class="search-form d-flex align-items-center" (ngSubmit)="showAllResults()">
+             <input type="text" name="query" placeholder="Search patient by name or mobile" title="Search patient by name or mobile"
+                autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="patientSearchResults"
+                [attr.aria-expanded]="isOpen" [(ngModel)]="searchText" (ngModelChange)="onSearchChange($event)"
+                (focus)="onFocus()" (keydown)="onKeydown($event)">
+             <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+          </form>
+          <div class="search-results" id="patientSearchResults" role="listbox" *ngIf="isOpen">
+             <div class="search-status" *ngIf="isLoading">Searching...</div>
+             <ng-container *ngIf="!isLoading">
+                <button type="button" class="search-result" role="option" *ngFor="let patient of results; let i = index"
+                   [class.active]="i === activeIndex" [attr.aria-selected]="i === activeIndex"
+                   (mouseenter)="activeIndex = i" (click)="selectPatient(patient)">
+                   <span class="search-result-name">{{ patient.FullName }}</span>
+                   <span class="search-result-info">{{ patientInfo(patient) }}</span>
+                </button>
+                <button type="button" class="search-result search-more" *ngIf="totalResults > results.length" (click)="showAllResults()">
+                   Showing {{ results.length }} of {{ totalResults }} - view all
+                </button>
+                <div class="search-status" *ngIf="results.length === 0">{{ emptyMessage }}</div>
+             </ng-container>
+          </div>
+       </div>
     </div>
     <!-- <nav class="header-nav ms-auto">
        <ul class="d-flex align-items-center">

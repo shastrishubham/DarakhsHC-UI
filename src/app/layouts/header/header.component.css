@@ -1,0 +1,52 @@
+.patient-search { position: relative; }
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: 420px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
+}
+
+.search-result {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.search-result.active,
+.search-result:hover { background: #f6f9ff; }
+
+.search-result-name {
+  display: block;
+  font-weight: 600;
+  color: #012970;
+}
+
+.search-result-info {
+  display: block;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.search-more {
+  color: #4154f1;
+  font-size: 13px;
+  border-bottom: 0;
+}
+
+.search-status {
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #6c757d;
+}

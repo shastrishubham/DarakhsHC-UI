@@ -5,6 +5,7 @@ import { SharedDataService } from '../services/shared-data.service';
 import { DatePipe } from '@angular/common';
 import { PatientEnquiry } from '../model/PatientEnquiry';
 import { PatientsAppointmentInfo } from '../model/PatientsAppointmentInfo';
+import { TableState, dateText } from '../data-table/table-state';
 
 @Component({
   selector: 'app-view-enquiry',
@@ -19,6 +20,13 @@ export class ViewEnquiryComponent implements OnInit {
   selectedEnquiry: PatientEnquiry;
   showApptModal: boolean = false;
   appointmentDateTime= new Date();
+  table = new TableState<PatientEnquiry>([
+    { key: 'FormDate', label: 'Enquiry Date', value: x => x.FormDate, text: x => dateText(x.FormDate, 'dd-MMM-yyyy hh:mm a') },
+    { key: 'Name', label: 'Name', value: x => x.Name },
+    { key: 'Mobile', label: 'Mobile', value: x => x.Mobile },
+    { key: 'EnquiryFor', label: 'Enquiry For', value: x => x.EnquiryFor },
+    { key: 'Address', label: 'Address', value: x => this.CombineAddress(x) }
+  ]);
   constructor(private route: ActivatedRoute, private router: Router, private patientsService: PatientsInfoService,
     private sharedService: SharedDataService, public datepipe: DatePipe) { }
 
@@ -30,6 +38,7 @@ export class ViewEnquiryComponent implements OnInit {
     this.patientsService.GetPatientEnquiries(0, this.fromDt, this.toDt).subscribe(res => {
       console.log(res);
       this.patientEnquiries = res;
+      this.table.setData(res);
     });
   }
 

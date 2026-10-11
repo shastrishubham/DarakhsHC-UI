@@ -3,6 +3,7 @@ import { ReferencesInfo } from '../model/ReferencesInfo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientsInfoService } from '../services/patients-info.service';
 import { SharedDataService } from '../services/shared-data.service';
+import { TableState } from '../data-table/table-state';
 
 @Component({
   selector: 'app-show-reference',
@@ -12,6 +13,9 @@ import { SharedDataService } from '../services/shared-data.service';
 export class ShowReferenceComponent implements OnInit {
 
   references: ReferencesInfo[] = [];
+  table = new TableState<ReferencesInfo>([
+    { key: 'Reference', label: 'Name', value: x => x.Reference }
+  ]);
   constructor(private route: ActivatedRoute, private router: Router, private patientService: PatientsInfoService,
     private sharedService: SharedDataService) { }
 
@@ -22,6 +26,7 @@ export class ShowReferenceComponent implements OnInit {
   getReferences() {
     this.patientService.GetReferences().subscribe((res: ReferencesInfo[]) => {
       this.references = res;
+      this.table.setData(res);
     });
   }
 
