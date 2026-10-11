@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PatientsInfo } from '../model/PatientsInfo';
 import { PatientsInfoService } from '../services/patients-info.service';
 import { SharedDataService } from '../services/shared-data.service';
+import { TableState } from '../data-table/table-state';
 
 @Component({
   selector: 'view-patient-record',
@@ -14,6 +15,12 @@ export class ViewPatientRecordComponent implements OnInit {
   patients: PatientsInfo[] = [];
   fromDt: any = new Date().toISOString().substring(0, 10);
   toDt: any = new Date().toISOString().substring(0, 10);
+  table = new TableState<PatientsInfo>([
+    { key: 'FullName', label: 'Name', value: x => x.FullName },
+    { key: 'Mobile', label: 'Mobile', value: x => this.CombineMobiles(x) },
+    { key: 'Address', label: 'Address', value: x => this.CombineAddress(x) },
+    { key: 'TreamentName', label: 'Treatment', value: x => x.TreamentName }
+  ]);
   constructor(private route: ActivatedRoute, private router: Router, private patientsService: PatientsInfoService,
     private sharedService: SharedDataService) { }
 
@@ -25,6 +32,7 @@ export class ViewPatientRecordComponent implements OnInit {
     this.patientsService.GetPatientInfo(0, this.fromDt, this.toDt).subscribe(res => {
       console.log(res);
       this.patients = res;
+      this.table.setData(res);
     });
   }
 

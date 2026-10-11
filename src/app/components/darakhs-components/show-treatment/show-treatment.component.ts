@@ -3,6 +3,7 @@ import { TreatmentsInfo } from '../model/TreatmentsInfo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientsInfoService } from '../services/patients-info.service';
 import { SharedDataService } from '../services/shared-data.service';
+import { TableState } from '../data-table/table-state';
 
 @Component({
   selector: 'app-show-treatment',
@@ -12,6 +13,9 @@ import { SharedDataService } from '../services/shared-data.service';
 export class ShowTreatmentComponent implements OnInit {
 
   treatments: TreatmentsInfo[] = [];
+  table = new TableState<TreatmentsInfo>([
+    { key: 'TreamentName', label: 'Name', value: x => x.TreamentName }
+  ]);
   constructor(private route: ActivatedRoute, private router: Router, private patientService: PatientsInfoService,
     private sharedService: SharedDataService) { }
 
@@ -23,6 +27,7 @@ export class ShowTreatmentComponent implements OnInit {
   getTreatments() {
     this.patientService.GetTreatments().subscribe((res: TreatmentsInfo[]) => {
       this.treatments = res;
+      this.table.setData(res);
     });
   }
 

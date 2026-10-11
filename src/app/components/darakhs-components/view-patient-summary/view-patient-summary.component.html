@@ -17,21 +17,11 @@
                   <h5 class="card-title">Patients Summary</h5>
                   <button type="button" (click)="createNewPatientSummary()" class="btn btn-primary">Add</button>
                   <!-- <p>Add lightweight datatables to your project.</p> -->
-                  <table class="table datatable">
-                     <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th> -->
-                           <th scope="col">Name</th>
-                           <th scope="col">Visit Date</th>
-                           <th scope="col">Description</th>
-                           <th scope="col">Next Visit Date</th>
-                           <th scope="col">Follow-Up Req/Date</th>
-                           <th scope="col">Amount</th>
-                           <th scope="col" colspan="3">Action</th>
-                        </tr>
-                     </thead>
+                  <app-data-table [table]="table">
+                  <table class="table">
+                     <thead appTableHead [table]="table" [actions]="true"></thead>
                      <tbody>
-                        <tr *ngFor="let patientSummary of patientsSummaries">
+                        <tr *ngFor="let patientSummary of table.pageRows">
                            <!-- <th scope="row">1</th> -->
                            <td>{{patientSummary.PatientsName}}</td>
                            <td>{{ patientSummary.VisitDate | date:'dd-MMM-yyyy hh:mm a' }}</td>
@@ -52,6 +42,7 @@
                         </tr>
                      </tbody>
                   </table>
+                  </app-data-table>
                </div>
             </div>
          </div>

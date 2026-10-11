@@ -29,20 +29,12 @@
                   </form>
                   <!-- <p>Add lightweight datatables to your project.</p> -->
                   <br/>
-                  <table class="table datatable" *ngIf="!IsShowPatientHistory">
-                     <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th> -->
-                           <th scope="col">Recent Visit</th>
-                           <th scope="col">Name</th>
-                           <th scope="col">Mobile</th>
-                           <th scope="col">Address</th>
-                           <th scope="col">Treatment</th>
-                           <th scope="col" colspan="2">Action</th> 
-                        </tr>
-                     </thead>
+                  <app-data-table [table]="table" *ngIf="!IsShowPatientHistory" searchPlaceholder="Search within results..."
+                     emptyText="No patients to show. Search above by name, mobile or address.">
+                  <table class="table">
+                     <thead appTableHead [table]="table" [actions]="true"></thead>
                      <tbody>
-                        <tr *ngFor="let patient of patients">
+                        <tr *ngFor="let patient of table.pageRows">
                            <!-- <th scope="row">1</th> -->
                            <td>{{ convertDateToFormat(patient.VisitDate) }}</td>
                            <td>{{patient.FullName}}</td>
@@ -57,21 +49,12 @@
                         </tr>
                      </tbody>
                   </table>
-                  <table class="table datatable" *ngIf="IsShowPatientHistory">
-                     <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th> -->
-                           <th scope="col">Visit Date</th>
-                           <th scope="col">Receipt</th>
-                           <th scope="col">Name</th>
-                           <th scope="col">Mobile</th>
-                           <th scope="col">Remark</th>
-                           <th scope="col">Note</th>
-                           <th scope="col" colspan="2">Action</th> 
-                        </tr>
-                     </thead>
+                  </app-data-table>
+                  <app-data-table [table]="historyTable" *ngIf="IsShowPatientHistory" searchPlaceholder="Search history...">
+                  <table class="table">
+                     <thead appTableHead [table]="historyTable" [actions]="true"></thead>
                      <tbody>
-                        <tr *ngFor="let patient of patientHistory">
+                        <tr *ngFor="let patient of historyTable.pageRows">
                            <!-- <th scope="row">1</th> -->
                            <td>{{ convertDateToFormat(patient.VisitDate) }}</td>
                            <td>{{ patient.ReceiptNo }}</td>
@@ -85,6 +68,7 @@
                         </tr>
                      </tbody>
                   </table>
+                  </app-data-table>
 
                </div>
             </div>

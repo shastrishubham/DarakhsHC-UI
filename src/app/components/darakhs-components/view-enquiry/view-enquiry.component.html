@@ -17,20 +17,11 @@
                   <h5 class="card-title">Enquiries</h5>
                   <button type="button" (click)="createEnquiry()" class="btn btn-primary">Add</button>
                   <!-- <p>Add lightweight datatables to your project.</p> -->
-                  <table class="table datatable">
-                     <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th> -->
-                           <th scope="col">Enquiry Date</th>
-                           <th scope="col">Name</th>
-                           <th scope="col">Mobile</th>
-                           <th scope="col">Enquiry For</th>
-                           <th scope="col">Address</th>
-                           <th scope="col" colspan="2">Action</th>
-                        </tr>
-                     </thead>
+                  <app-data-table [table]="table">
+                  <table class="table">
+                     <thead appTableHead [table]="table" [actions]="true"></thead>
                      <tbody>
-                        <tr *ngFor="let patientEnquiry of patientEnquiries">
+                        <tr *ngFor="let patientEnquiry of table.pageRows">
                            <!-- <th scope="row">1</th> -->
                            <td>{{ patientEnquiry.FormDate  | date:'dd-MMM-yyyy hh:mm a' }}</td>
                            <td>{{ patientEnquiry.Name}}</td>
@@ -45,6 +36,7 @@
                         </tr>
                      </tbody>
                   </table>
+                  </app-data-table>
                </div>
             </div>
          </div>

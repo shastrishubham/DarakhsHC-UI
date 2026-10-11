@@ -38,18 +38,11 @@
                  <br/>
 
                   <!-- <p>Add lightweight datatables to your project.</p> -->
-                  <table class="table datatable">
-                     <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th> -->
-                           <th scope="col">Name</th>
-                           <th scope="col">Mobile</th>
-                           <th scope="col">Address</th>
-                           <th scope="col">Treatment</th>
-                        </tr>
-                     </thead>
+                  <app-data-table [table]="table">
+                  <table class="table">
+                     <thead appTableHead [table]="table"></thead>
                      <tbody>
-                        <tr *ngFor="let followUpPatient of followUpPatients">
+                        <tr *ngFor="let followUpPatient of table.pageRows">
                            <!-- <th scope="row">1</th> -->
                             <td> <a href="javascript:void(0)" class="text-primary fw-semibold" (click)="openPatientPopup(followUpPatient)">
                                         {{ followUpPatient.PatientsName }} </a>
@@ -60,6 +53,7 @@
                         </tr>
                      </tbody>
                   </table>
+                  </app-data-table>
                </div>
             </div>
          </div>

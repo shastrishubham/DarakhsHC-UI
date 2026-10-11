@@ -41,20 +41,12 @@
                  <br/>
 
                   <!-- <p>Add lightweight datatables to your project.</p> -->
-                  <table class="table datatable">
-                     <thead>
-                        <tr>
-                           <th scope="col">#</th>
-                           <th scope="col">Creation Date</th>
-                           <th scope="col">Name</th>
-                           <th scope="col">Mobile</th>
-                           <th scope="col">Address</th>
-                           <th scope="col">Treatment</th>
-                        </tr>
-                     </thead>
+                  <app-data-table [table]="table">
+                  <table class="table">
+                     <thead appTableHead [table]="table" [serial]="true"></thead>
                      <tbody>
-                        <tr *ngFor="let patient of patients; let i = index">
-                           <td>{{ i + 1 }}</td>
+                        <tr *ngFor="let patient of table.pageRows; let i = index">
+                           <td>{{ table.serial(i) }}</td>
                            <td>{{ patient.FormDate  | date:'dd-MMM-yyyy' }}</td>
                            <td>{{patient.FullName}}</td>
                            <td>{{ CombineMobiles(patient) }}</td>
@@ -63,6 +55,7 @@
                         </tr>
                      </tbody>
                   </table>
+                  </app-data-table>
                </div>
             </div>
          </div>

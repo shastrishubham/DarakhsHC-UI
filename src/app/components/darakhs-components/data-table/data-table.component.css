@@ -1,0 +1,39 @@
+:host { display: block; }
+
+.dt-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 12px;
+}
+
+.dt-search { width: 260px; max-width: 100%; }
+
+.dt-page-size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.dt-page-size .form-select { width: auto; }
+
+.dt-empty {
+  text-align: center;
+  color: #6c757d;
+  padding: 16px 0;
+  margin: 0;
+}
+
+.dt-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.dt-info { color: #6c757d; font-size: 14px; }

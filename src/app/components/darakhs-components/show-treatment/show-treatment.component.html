@@ -17,17 +17,12 @@
                   <h5 class="card-title">Treatments</h5>
                   <button type="button" (click)="createTreatment()" class="btn btn-primary">Add</button>
                   <!-- <p>Add lightweight datatables to your project.</p> -->
-                  <table class="table datatable">
-                     <thead>
-                        <tr>
-                           <th scope="col">#</th>
-                           <th scope="col">Name</th>
-                           <th scope="col" colspan="2">Action</th>
-                        </tr>
-                     </thead>
+                  <app-data-table [table]="table">
+                  <table class="table">
+                     <thead appTableHead [table]="table" [serial]="true" [actions]="true"></thead>
                      <tbody>
-                        <tr *ngFor="let treatment of treatments; let i = index">
-                           <td>{{ i + 1 }}</td>
+                        <tr *ngFor="let treatment of table.pageRows; let i = index">
+                           <td>{{ table.serial(i) }}</td>
                            <td>{{treatment.TreamentName}}</td>
                            <td>
                               <a href="javascript:void(0);" (click)="editTreatment(treatment)">Edit</a> 
@@ -35,6 +30,7 @@
                         </tr>
                      </tbody>
                   </table>
+                  </app-data-table>
                </div>
             </div>
          </div>

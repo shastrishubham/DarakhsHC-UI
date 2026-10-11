@@ -1,0 +1,17 @@
+th { white-space: nowrap; vertical-align: middle; }
+
+.dt-sort {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.dt-sort:hover { color: #4154f1; }
+
+.dt-sort .bi { font-size: 12px; margin-left: 2px; }
+
+.dt-sort-idle { opacity: 0.35; }

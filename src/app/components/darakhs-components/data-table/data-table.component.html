@@ -1,0 +1,46 @@
+<div class="dt-toolbar">
+   <div class="input-group input-group-sm dt-search">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="search" class="form-control" [placeholder]="searchPlaceholder" aria-label="Search table"
+         [(ngModel)]="table.search" [ngModelOptions]="{standalone: true}" (ngModelChange)="table.onCriteriaChange()">
+   </div>
+   <div class="dt-page-size">
+      <label class="form-label mb-0" for="dtPageSize">Rows per page</label>
+      <select id="dtPageSize" class="form-select form-select-sm" [ngModel]="table.pageSize"
+         [ngModelOptions]="{standalone: true}" (ngModelChange)="table.setPageSize($event)">
+         <option *ngFor="let size of table.pageSizes" [ngValue]="size">{{ size }}</option>
+      </select>
+   </div>
+</div>
+
+<div class="table-responsive">
+   <ng-content></ng-content>
+</div>
+
+<p class="dt-empty" *ngIf="table.total === 0">
+   {{ table.sourceTotal > 0 ? 'No records match your search.' : emptyText }}
+</p>
+
+<div class="dt-footer" *ngIf="table.total > 0">
+   <span class="dt-info">
+      Showing {{ table.from }} to {{ table.to }} of {{ table.total }}
+      <span *ngIf="table.total !== table.sourceTotal">(filtered from {{ table.sourceTotal }})</span>
+   </span>
+   <nav aria-label="Table pages" *ngIf="table.totalPages > 1">
+      <ul class="pagination pagination-sm mb-0">
+         <li class="page-item" [class.disabled]="table.page === 1">
+            <button type="button" class="page-link" aria-label="Previous page" [disabled]="table.page === 1"
+               (click)="table.goTo(table.page - 1)"><i class="bi bi-chevron-left"></i></button>
+         </li>
+         <li class="page-item" *ngFor="let p of table.pageList" [class.active]="p === table.page" [class.disabled]="p === 0">
+            <span class="page-link" *ngIf="p === 0">&hellip;</span>
+            <button type="button" class="page-link" *ngIf="p !== 0" [attr.aria-current]="p === table.page ? 'page' : null"
+               (click)="table.goTo(p)">{{ p }}</button>
+         </li>
+         <li class="page-item" [class.disabled]="table.page === table.totalPages">
+            <button type="button" class="page-link" aria-label="Next page" [disabled]="table.page === table.totalPages"
+               (click)="table.goTo(table.page + 1)"><i class="bi bi-chevron-right"></i></button>
+         </li>
+      </ul>
+   </nav>
+</div>

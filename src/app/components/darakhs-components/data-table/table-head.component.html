@@ -1,0 +1,10 @@
+<tr>
+   <th scope="col" *ngIf="serial">#</th>
+   <th scope="col" *ngFor="let col of table.columns" [attr.aria-sort]="ariaSort(col)">
+      <span *ngIf="col.sortable === false">{{ col.label }}</span>
+      <button type="button" class="dt-sort" *ngIf="col.sortable !== false" (click)="table.toggleSort(col.key)">
+         {{ col.label }} <i class="bi" [ngClass]="sortIcon(col)"></i>
+      </button>
+   </th>
+   <th scope="col" *ngIf="actions">{{ actionsLabel }}</th>
+</tr>
