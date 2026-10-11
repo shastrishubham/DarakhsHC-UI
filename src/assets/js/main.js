@@ -1,5 +1,14 @@
 (function() {
   "use strict";
+
+  /**
+   * The demo charts below only exist on the template pages.
+   * Skip a chart when its element is not on the current page.
+   */
+  const initEchart = (el) => el ? echarts.init(el) : { setOption: function() {} }
+  const initApexChart = (el, options) => el ? new ApexCharts(el, options) : { render: function() {} }
+  const initChartJs = (el, config) => el ? new Chart(el, config) : null
+
   setTimeout(function(){
   /**
    * Easy selector helper function
@@ -304,13 +313,14 @@
     setTimeout(() => {
       new ResizeObserver(function() {
         select('.echart', true).forEach(getEchart => {
-          echarts.getInstanceByDom(getEchart).resize();
+          const chart = echarts.getInstanceByDom(getEchart);
+          if (chart) chart.resize();
         })
       }).observe(mainContainer);
     }, 200);
   }
   /*Charts*/
-  var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+  var budgetChart = initEchart(document.querySelector("#budgetChart")).setOption({
     legend: {
       data: ['Allocated Budget', 'Actual Spending']
     },
@@ -356,7 +366,7 @@
       ]
     }]
   });
-  var trafficChart = echarts.init(document.querySelector("#trafficChart")).setOption({
+  var trafficChart = initEchart(document.querySelector("#trafficChart")).setOption({
     tooltip: {
       trigger: 'item'
     },
@@ -408,7 +418,7 @@
   });
   
 //Echart
-var EareaChart = echarts.init(document.querySelector("#EareaChart")).setOption({
+var EareaChart = initEchart(document.querySelector("#EareaChart")).setOption({
   xAxis: {
     type: 'category',
     boundaryGap: false,
@@ -426,7 +436,7 @@ var EareaChart = echarts.init(document.querySelector("#EareaChart")).setOption({
   }]
 });
 
-var barChart = echarts.init(document.querySelector("#barChart")).setOption({
+var barChart = initEchart(document.querySelector("#barChart")).setOption({
   xAxis: {
     type: 'category',
     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -440,7 +450,7 @@ var barChart = echarts.init(document.querySelector("#barChart")).setOption({
   }]
 });
 
-var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart")).setOption({
+var verticalBarChart = initEchart(document.querySelector("#verticalBarChart")).setOption({
   title: {
     text: 'World Population'
   },
@@ -482,7 +492,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
   
   
   }, 1);
-  new ApexCharts(document.querySelector("#reportsChart"), {
+  initApexChart(document.querySelector("#reportsChart"), {
     series: [{
       name: 'Sales',
       data: [31, 40, 28, 51, 42, 82, 56],
@@ -531,7 +541,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
     }
   }).render();
   //ApexCharts
-  var lineChart = new ApexCharts(document.querySelector("#AlineChart"), {
+  var lineChart = initApexChart(document.querySelector("#AlineChart"), {
     series: [{
       name: "Desktops",
       data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
@@ -906,7 +916,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       ]
     }
   }
-  var AareaChart = new ApexCharts(document.querySelector("#AareaChart"), {
+  var AareaChart = initApexChart(document.querySelector("#AareaChart"), {
     series: [{
       name: "STOCK ABC",
       data: series.monthDataSeries1.prices
@@ -940,7 +950,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
     }
   }).render();
   //Chart.js
-  new Chart(document.querySelector('#lineChart'), {
+  initChartJs(document.querySelector('#lineChart'), {
     type: 'line',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -960,7 +970,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       }
     }
   });
-  new Chart(document.querySelector('#barChart'), {
+  initChartJs(document.querySelector('#barChart'), {
     type: 'bar',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -996,7 +1006,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       }
     }
   });
-  new Chart(document.querySelector('#pieChart'), {
+  initChartJs(document.querySelector('#pieChart'), {
     type: 'pie',
     data: {
       labels: [
@@ -1016,7 +1026,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       }]
     }
   });
-  new Chart(document.querySelector('#doughnutChart'), {
+  initChartJs(document.querySelector('#doughnutChart'), {
     type: 'doughnut',
     data: {
       labels: [
@@ -1036,7 +1046,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       }]
     }
   });
-  new Chart(document.querySelector('#radarChart'), {
+  initChartJs(document.querySelector('#radarChart'), {
     type: 'radar',
     data: {
       labels: [
@@ -1078,7 +1088,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       }
     }
   });
-  new Chart(document.querySelector('#polarAreaChart'), {
+  initChartJs(document.querySelector('#polarAreaChart'), {
     type: 'polarArea',
     data: {
       labels: [
@@ -1101,7 +1111,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       }]
     }
   });
-  new Chart(document.querySelector('#stakedBarChart'), {
+  initChartJs(document.querySelector('#stakedBarChart'), {
     type: 'bar',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -1140,7 +1150,7 @@ var verticalBarChart = echarts.init(document.querySelector("#verticalBarChart"))
       }
     }
   });
-  new Chart(document.querySelector('#bubbleChart'), {
+  initChartJs(document.querySelector('#bubbleChart'), {
     type: 'bubble',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
