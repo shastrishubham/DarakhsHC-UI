@@ -19,7 +19,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -44,9 +43,29 @@ jobs:
           name: angular-dist
 
       - name: Deploy to Azure Web App
+        id: deploy
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'DarakhHC-UI'
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_305BE465BA274A9C94C59F2254C28544 }}
+
+      # Azure can report success without writing the files (for example when the plan's disk is full),
+      # so check that the site is really serving the bundle that was just built.
+      - name: Verify the live site is serving this build
+        shell: pwsh
+        run: |
+          $expected = [regex]::Match((Get-Content index.html -Raw), 'main\.[0-9a-f]+\.js').Value
+          if (-not $expected) { throw "Could not find the main bundle name in the built index.html" }
+          $url = '${{ steps.deploy.outputs.webapp-url }}'
+          if (-not $url) { $url = 'https://darakhhc-ui-gnamebhnfcbvd6ea.centralindia-01.azurewebsites.net' }
+          $url = $url.TrimEnd('/')
+          for ($i = 1; $i -le 12; $i++) {
+            try {
+              $live = (Invoke-WebRequest -Uri "$url/?v=$(Get-Random)" -UseBasicParsing -TimeoutSec 30).Content
+              if ($live.Contains($expected)) { Write-Host "Live site is serving $expected"; exit 0 }
+            } catch { Write-Host "Attempt ${i}: $($_.Exception.Message)" }
+            Start-Sleep -Seconds 10
+          }
+          throw "Deploy reported success, but $url is still serving an older build (expected $expected). Check free disk space in Kudu > Environment (C:\home usage)."
